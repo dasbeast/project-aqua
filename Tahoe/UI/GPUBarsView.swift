@@ -1,0 +1,141 @@
+import SwiftUI
+
+// MARK: - GPUBarsView
+// Dot-matrix histogram: columns = time (oldest left → newest right),
+// rows = load level (0% bottom → 100% top). Lit cells grow upward.
+
+struct GPUBarsView: View {
+    let gpu: GPUState
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    // Grid geometry
+    private let rowCount: Int    = 20
+    private let cellSize: CGFloat = 3.5
+    private let cellGap:  CGFloat = 1.5
+
+    private var gridHeight: CGFloat {
+        CGFloat(rowCount) * (cellSize + cellGap) - cellGap
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            dotMatrix
+            pipelineBars
+        }
+    }
+
+    // MARK: - Dot matrix
+
+    private var dotMatrix: some View {
+        GeometryReader { geo in
+            Canvas { ctx, size in
+                // Always use exactly sparklineHistory columns stretched to fill
+                // the available width — grid is always wall-to-wall.
+                let cols    = TahoeTokens.Timing.sparklineHistory
+                let history = paddedHistory(cols: cols)
+                let tint    = TahoeTokens.Color.gpuTint
+
+                // Stretch step so cols * step == size.width exactly.
+                let step  = size.width / CGFloat(cols)
+                let cellW = max(step - cellGap, 2)
+
+                for col in 0 ..< cols {
+                    let load    = history[col]
+                    let litRows = Int((load / 100.0) * Double(rowCount) + 0.5)
+
+                    for row in 0 ..< rowCount {
+                        let x    = CGFloat(col) * step
+                        let y    = CGFloat(row) * (cellSize + cellGap)
+                        let rect = CGRect(x: x, y: y, width: cellW, height: cellSize)
+                        let path = Path(roundedRect: rect, cornerRadius: 1.0)
+
+                        let isLit   = row >= rowCount - litRows
+                        let isCrest = row == rowCount - litRows
+
+                        if isLit {
+                            ctx.fill(path, with: .color(tint.opacity(isCrest ? 0.95 : 0.65)))
+                        } else {
+                            ctx.fill(path, with: .color(Color.white.opacity(0.05)))
+                        }
+                    }
+                }
+            }
+        }
+        .frame(height: gridHeight)
+        // Overlay: overall % badge bottom-right
+        .overlay(alignment: .bottomTrailing) {
+            Text(String(format: "%.0f%%", gpu.utilization))
+                .font(.system(size: 10, weight: .semibold, design: .monospaced))
+                .foregroundStyle(TahoeTokens.Color.gpuTint.opacity(0.9))
+                .padding(.horizontal, 5)
+                .padding(.vertical, 2)
+                .background {
+                    Capsule(style: .continuous)
+                        .fill(TahoeTokens.Color.gpuTint.opacity(0.13))
+                }
+        }
+    }
+
+    // MARK: - Pipeline mini-bars (Tiler / Renderer)
+
+    private var pipelineBars: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            pipelineBar(label: "Tiler",
+                        note:  "Geometry & vertices",
+                        value: gpu.tilerUtil,
+                        tint:  Color(red: 0.65, green: 0.35, blue: 0.90))
+                .tooltip("Processes 3D geometry — turning shapes and triangles into pixel positions. High tiler load means complex geometry is on screen, like a dense game world or 3D model.")
+            pipelineBar(label: "Renderer",
+                        note:  "Fragment & compute",
+                        value: gpu.rendererUtil,
+                        tint:  Color(red: 0.44, green: 0.22, blue: 0.70))
+                .tooltip("Colours in every pixel — applying textures, lighting, shadows, and effects. High renderer load means visually intense content is being drawn, or heavy GPU compute is running.")
+        }
+    }
+
+    @ViewBuilder
+    private func pipelineBar(label: String, note: String, value: Double, tint: Color) -> some View {
+        HStack(spacing: 6) {
+            VStack(alignment: .leading, spacing: 1) {
+                Text(label)
+                    .font(.system(size: 9, weight: .semibold))
+                    .foregroundStyle(tint.opacity(0.9))
+                Text(note)
+                    .font(.system(size: 7, weight: .regular))
+                    .foregroundStyle(.quaternary)
+            }
+            .frame(width: 62, alignment: .leading)
+
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 2, style: .continuous)
+                        .fill(Color.primary.opacity(0.06))
+                    RoundedRectangle(cornerRadius: 2, style: .continuous)
+                        .fill(LinearGradient(
+                            colors: [tint.opacity(0.85), tint.opacity(0.5)],
+                            startPoint: .leading, endPoint: .trailing))
+                        .frame(width: geo.size.width * max(value, 0) / 100)
+                }
+            }
+            .frame(height: 5)
+            .animation(
+                reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.8),
+                value: value
+            )
+
+            Text(String(format: "%.0f%%", value))
+                .font(.system(size: 9, weight: .medium, design: .monospaced))
+                .foregroundStyle(tint.opacity(0.85))
+                .frame(width: 30, alignment: .trailing)
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func paddedHistory(cols: Int) -> [Double] {
+        let h = gpu.history
+        guard h.count < cols else { return Array(h.suffix(cols)) }
+        return Array(repeating: 0.0, count: cols - h.count) + h
+    }
+}

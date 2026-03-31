@@ -1,0 +1,62 @@
+import SwiftUI
+
+@main
+struct TahoeApp: App {
+    @StateObject  private var monitor     = SystemMonitor.shared
+    @AppStorage("compactMode") private var compactMode = false
+    @AppStorage("alwaysOnTop") private var alwaysOnTop = true
+    @AppStorage("uiTheme")     private var uiThemeRaw  = AppTheme.tahoe.rawValue
+
+    private var theme: AppTheme { AppTheme(rawValue: uiThemeRaw) ?? .tahoe }
+
+    var body: some Scene {
+        WindowGroup {
+            DashboardView()
+                .environmentObject(monitor)
+                .environment(\.appTheme, theme)
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.automatic)
+        .defaultSize(width: 520, height: 640)
+        .commands {
+            // ⌘,  → Settings (mirrors the gear button)
+            CommandGroup(replacing: .appSettings) {
+                EmptyView()   // SwiftUI owns ⌘, natively via the scene
+            }
+
+            CommandGroup(after: .appInfo) {
+                Button("Copy Snapshot") {
+                    let text = monitor.snapshot()
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(text, forType: .string)
+                }
+                .keyboardShortcut("c", modifiers: [.command, .shift])
+
+                Divider()
+
+                Button(compactMode ? "Expand View" : "Compact View") {
+                    compactMode.toggle()
+                }
+                .keyboardShortcut("k", modifiers: .command)
+
+                Button(alwaysOnTop ? "Disable Float" : "Float Above Windows") {
+                    alwaysOnTop.toggle()
+                }
+                .keyboardShortcut("f", modifiers: [.command, .shift])
+            }
+        }
+
+        MenuBarExtra {
+            MenuBarView()
+                .environmentObject(monitor)
+        } label: {
+            MenuBarLabel(
+                cpu:    monitor.cpu.total,
+                gpu:    monitor.gpu.utilization,
+                memPct: monitor.memory.usedGB / max(monitor.memory.totalGB, 1) * 100,
+                pwr:    monitor.power.totalWatts
+            )
+        }
+        .menuBarExtraStyle(.window)
+    }
+}
