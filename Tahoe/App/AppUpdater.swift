@@ -26,13 +26,11 @@ final class AppUpdater: ObservableObject {
         }
 
         let controller = SPUStandardUpdaterController(
-            startingUpdater: false,
             updaterDelegate: nil,
             userDriverDelegate: nil
         )
         updaterController = controller
         configurationError = nil
-        controller.startUpdater()
     }
 
     private static func isValidFeedURL(_ value: String?) -> Bool {
