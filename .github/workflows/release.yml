@@ -210,10 +210,7 @@ jobs:
           if [[ -n "${AQUA_SSH_KEY_PASSPHRASE:-}" ]]; then
             eval "$(ssh-agent -s)"
             ASKPASS_SCRIPT="$RUNNER_TEMP/ssh_askpass.sh"
-            cat > "$ASKPASS_SCRIPT" <<'EOF'
-#!/bin/sh
-printf '%s\n' "$AQUA_SSH_KEY_PASSPHRASE"
-EOF
+            printf '%s\n%s\n' '#!/bin/sh' 'printf "%s\n" "$AQUA_SSH_KEY_PASSPHRASE"' > "$ASKPASS_SCRIPT"
             chmod 700 "$ASKPASS_SCRIPT"
             DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force setsid ssh-add "$SSH_KEY_PATH" </dev/null
             echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
