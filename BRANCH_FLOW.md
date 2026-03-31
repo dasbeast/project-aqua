@@ -19,9 +19,12 @@
   - `./aqua-release`
 - Open a release PR from `dev` to `main`:
   - `./aqua-release-pr`
+- Prepare a new release version on `main`:
+  - `./aqua-prepare-release 0.0.6`
 
 ## Notes
 
 - CI runs on pushes to both `dev` and `main`, plus PRs targeting either branch.
 - The release workflow now refuses to publish unless the tagged commit is already on `main`.
 - `gh auth login -h github.com` must be set up before using `./aqua-release-pr`.
+- `./aqua-prepare-release <version>` keeps Xcode, the visible app footer, and the git tag aligned.
