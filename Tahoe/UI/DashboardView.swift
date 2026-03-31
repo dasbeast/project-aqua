@@ -76,8 +76,9 @@ struct DashboardView: View {
                             HStack(spacing: 10) {
                                 panelCard(label: "CPU Cores", tag: coresTag) {
                                     CoreBarsView(
-                                        cores:     monitor.cpu.cores,
-                                        processes: monitor.processes
+                                        cores:       monitor.cpu.cores,
+                                        coreHistory: monitor.cpu.coreHistory,
+                                        processes:   monitor.processes
                                     )
                                 }
                                 panelCard(label: "Memory", tag: "\(Int(monitor.memory.totalGB)) GB unified") {

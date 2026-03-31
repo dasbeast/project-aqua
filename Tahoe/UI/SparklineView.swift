@@ -3,6 +3,7 @@ import SwiftUI
 struct SparklineView: View {
     let history:            [Double]
     let tint:               Color
+    var height:             CGFloat = 48
     var accessibilityLabel: String = "Sparkline"
     var accessibilityValue: String = ""
     @Environment(\.accessibilityReduceMotion) var reduceMotion
@@ -15,13 +16,15 @@ struct SparklineView: View {
         ZStack(alignment: .topLeading) {
             Canvas { ctx, size in
                 guard history.count > 1 else { return }
-                let w    = size.width
-                let h    = size.height
-                let step = w / Double(history.count - 1)
+                let w        = size.width
+                let h        = size.height
+                let maxCount = TahoeTokens.Timing.sparklineHistory
+                let step     = w / Double(maxCount - 1)
+                let offset   = maxCount - history.count  // places data at right edge
 
                 var path = Path()
                 for (i, v) in history.enumerated() {
-                    let x = Double(i) * step
+                    let x = Double(i + offset) * step
                     let y = h - (v / 100.0) * h * 0.82 - h * 0.09
                     i == 0 ? path.move(to: CGPoint(x: x, y: y))
                            : path.addLine(to: CGPoint(x: x, y: y))
@@ -30,7 +33,7 @@ struct SparklineView: View {
 
                 var fill = path
                 fill.addLine(to: CGPoint(x: w, y: h))
-                fill.addLine(to: CGPoint(x: 0, y: h))
+                fill.addLine(to: CGPoint(x: Double(offset) * step, y: h))
                 fill.closeSubpath()
                 ctx.fill(fill, with: .color(tint.opacity(0.1)))
 
@@ -51,7 +54,7 @@ struct SparklineView: View {
                     ctx.stroke(line, with: .color(tint.opacity(0.35)), lineWidth: 0.75)
                 }
             }
-            .frame(height: 48)
+            .frame(height: height)
             .animation(reduceMotion ? nil : .easeOut(duration: 0.3), value: history.count)
             .onContinuousHover { phase in
                 switch phase {

@@ -3,42 +3,44 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA000000000000000000BF01 /* TahoeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR02; };
-		AA000000000000000000BF02 /* CPUMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR03; };
-		AA000000000000000000BF03 /* GPUMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR04; };
-		AA000000000000000000BF04 /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR05; };
-		AA000000000000000000BF05 /* PowerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR06; };
-		AA000000000000000000BF06 /* ProcessMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR07; };
-		AA000000000000000000BF07 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR08; };
-		AA000000000000000000BF08 /* SystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR09; };
-		AA000000000000000000BF09 /* TahoeTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0A; };
-		AA000000000000000000BF0A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0B; };
-		AA000000000000000000BF0B /* HeroCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0C; };
-		AA000000000000000000BF0C /* CoreBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0D; };
-		AA000000000000000000BF0D /* MemoryBreakdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0E; };
-		AA000000000000000000BF0E /* ProcessListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0F; };
-		AA000000000000000000BF0F /* SparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR10; };
-		AA000000000000000000BF10 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR11; };
-		AA000000000000000000BF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR12; };
-		AA000000000000000000BF12 /* WindowChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR14; };
-		AA000000000000000000BF13 /* SystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR15; };
-		AA000000000000000000BF14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR16; };
-		AA000000000000000000BF15 /* DiskMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR17; };
-		AA000000000000000000BF16 /* SMCMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR18; };
-		AA000000000000000000BF17 /* AlertMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR19; };
-		AA000000000000000000BF18 /* NetworkDiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1A; };
-		AA000000000000000000BF19 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1B; };
-		AA000000000000000000BF1A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1C; };
-		AA000000000000000000BF1B /* GPUBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1D; };
-		AA000000000000000000BF1C /* TahoeTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1E; };
+		AA000000000000000000BF1D /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AA000000000000000000PK02 /* Sparkle */; };
+		AA000000000000000000BF1E /* AppUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1F /* AppUpdater.swift */; };
+		AA000000000000000000BF01 /* TahoeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR02 /* TahoeApp.swift */; };
+		AA000000000000000000BF02 /* CPUMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR03 /* CPUMonitor.swift */; };
+		AA000000000000000000BF03 /* GPUMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR04 /* GPUMonitor.swift */; };
+		AA000000000000000000BF04 /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR05 /* MemoryMonitor.swift */; };
+		AA000000000000000000BF05 /* PowerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR06 /* PowerMonitor.swift */; };
+		AA000000000000000000BF06 /* ProcessMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR07 /* ProcessMonitor.swift */; };
+		AA000000000000000000BF07 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR08 /* NetworkMonitor.swift */; };
+		AA000000000000000000BF08 /* SystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR09 /* SystemMonitor.swift */; };
+		AA000000000000000000BF09 /* TahoeTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0A /* TahoeTokens.swift */; };
+		AA000000000000000000BF0A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0B /* DashboardView.swift */; };
+		AA000000000000000000BF0B /* HeroCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0C /* HeroCardView.swift */; };
+		AA000000000000000000BF0C /* CoreBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0D /* CoreBarsView.swift */; };
+		AA000000000000000000BF0D /* MemoryBreakdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0E /* MemoryBreakdownView.swift */; };
+		AA000000000000000000BF0E /* ProcessListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR0F /* ProcessListView.swift */; };
+		AA000000000000000000BF0F /* SparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR10 /* SparklineView.swift */; };
+		AA000000000000000000BF10 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR11 /* MenuBarView.swift */; };
+		AA000000000000000000BF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR12 /* Assets.xcassets */; };
+		AA000000000000000000BF12 /* WindowChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR14 /* WindowChrome.swift */; };
+		AA000000000000000000BF13 /* SystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR15 /* SystemInfo.swift */; };
+		AA000000000000000000BF14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR16 /* SettingsView.swift */; };
+		AA000000000000000000BF15 /* DiskMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR17 /* DiskMonitor.swift */; };
+		AA000000000000000000BF16 /* SMCMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR18 /* SMCMonitor.swift */; };
+		AA000000000000000000BF17 /* AlertMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR19 /* AlertMonitor.swift */; };
+		AA000000000000000000BF18 /* NetworkDiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1A /* NetworkDiskView.swift */; };
+		AA000000000000000000BF19 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1B /* DetailView.swift */; };
+		AA000000000000000000BF1A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1C /* AppTheme.swift */; };
+		AA000000000000000000BF1B /* GPUBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1D /* GPUBarsView.swift */; };
+		AA000000000000000000BF1C /* TahoeTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1E /* TahoeTooltip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA000000000000000000FR01 /* Tahoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tahoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA000000000000000000FR01 /* Aqua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aqua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA000000000000000000FR02 /* TahoeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahoeApp.swift; sourceTree = "<group>"; };
 		AA000000000000000000FR03 /* CPUMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUMonitor.swift; sourceTree = "<group>"; };
 		AA000000000000000000FR04 /* GPUMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUMonitor.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		AA000000000000000000FR1C /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		AA000000000000000000FR1D /* GPUBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUBarsView.swift; sourceTree = "<group>"; };
 		AA000000000000000000FR1E /* TahoeTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahoeTooltip.swift; sourceTree = "<group>"; };
+		AA000000000000000000FR1F /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA000000000000000000BF1D /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +101,7 @@
 		AA000000000000000000GR02 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA000000000000000000FR01 /* Tahoe.app */,
+				AA000000000000000000FR01 /* Aqua.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				AA000000000000000000FR02 /* TahoeApp.swift */,
+				AA000000000000000000FR1F /* AppUpdater.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -157,7 +162,7 @@
 			path = Design;
 			sourceTree = "<group>";
 		};
-		AA000000000000000000ROOT /* root */ = {
+		AA000000000000000000ROOT = {
 			isa = PBXGroup;
 			children = (
 				AA000000000000000000GR01 /* Tahoe */,
@@ -168,9 +173,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA000000000000000000TARG /* Tahoe */ = {
+		AA000000000000000000TARG /* Aqua */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA000000000000000000CL02 /* Build configuration list for PBXNativeTarget "Tahoe" */;
+			buildConfigurationList = AA000000000000000000CL02 /* Build configuration list for PBXNativeTarget "Aqua" */;
 			buildPhases = (
 				AA000000000000000000BP01 /* Sources */,
 				AA000000000000000000BP02 /* Frameworks */,
@@ -180,9 +185,12 @@
 			);
 			dependencies = (
 			);
-			name = Tahoe;
+			name = Aqua;
+			packageProductDependencies = (
+				AA000000000000000000PK02 /* Sparkle */,
+			);
 			productName = Tahoe;
-			productReference = AA000000000000000000FR01 /* Tahoe.app */;
+			productReference = AA000000000000000000FR01 /* Aqua.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -212,8 +220,11 @@
 			productRefGroup = AA000000000000000000GR02 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
+			packageReferences = (
+				AA000000000000000000PK01 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			targets = (
-				AA000000000000000000TARG /* Tahoe */,
+				AA000000000000000000TARG /* Aqua */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA000000000000000000BF01 /* TahoeApp.swift in Sources */,
+				AA000000000000000000BF1E /* AppUpdater.swift in Sources */,
 				AA000000000000000000BF02 /* CPUMonitor.swift in Sources */,
 				AA000000000000000000BF03 /* GPUMonitor.swift in Sources */,
 				AA000000000000000000BF04 /* MemoryMonitor.swift in Sources */,
@@ -389,22 +401,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tahoe/Tahoe.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4V28UB843Z;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Tahoe;
+				INFOPLIST_KEY_CFBundleDisplayName = Aqua;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_SUEnableInstallerLauncherService = YES;
+				INFOPLIST_KEY_SUFeedURL = "https://baileykiehl.com/Aqua/appcast.xml";
+				INFOPLIST_KEY_SUPublicEDKey = "cSefTWZWrIo+umMR+wygB4EDV3BOSt2zwVlmun/R/zM=";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tahoe.Tahoe;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileykiehl.Aqua;
+				PRODUCT_NAME = Aqua;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.9;
 			};
@@ -416,22 +434,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tahoe/Tahoe.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4V28UB843Z;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Tahoe;
+				INFOPLIST_KEY_CFBundleDisplayName = Aqua;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_SUEnableInstallerLauncherService = YES;
+				INFOPLIST_KEY_SUFeedURL = "https://baileykiehl.com/Aqua/appcast.xml";
+				INFOPLIST_KEY_SUPublicEDKey = "cSefTWZWrIo+umMR+wygB4EDV3BOSt2zwVlmun/R/zM=";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tahoe.Tahoe;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileykiehl.Aqua;
+				PRODUCT_NAME = Aqua;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.9;
 			};
@@ -449,7 +473,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA000000000000000000CL02 /* Build configuration list for PBXNativeTarget "Tahoe" */ = {
+		AA000000000000000000CL02 /* Build configuration list for PBXNativeTarget "Aqua" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA000000000000000000BC03 /* Debug */,
@@ -460,6 +484,24 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		AA000000000000000000PK01 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA000000000000000000PK02 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA000000000000000000PK01 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA000000000000000000PROJ /* Project object */;
 }

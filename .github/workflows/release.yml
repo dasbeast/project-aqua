@@ -1,0 +1,226 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Run project CI script
+        run: ./scripts/ci.sh
+
+  release:
+    needs: validate
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    env:
+      AQUA_NOTARY_PROFILE: aqua-ci
+      AQUA_SSH_HOST: ${{ secrets.AQUA_SSH_HOST }}
+      AQUA_SSH_USER: ${{ secrets.AQUA_SSH_USER }}
+      AQUA_FEED_BASE_URL: ${{ secrets.AQUA_FEED_BASE_URL }}
+      AQUA_REMOTE_DIR: ${{ secrets.AQUA_REMOTE_DIR }}
+      AQUA_APPCAST_FILENAME: ${{ secrets.AQUA_APPCAST_FILENAME }}
+      AQUA_SU_FEED_URL: ${{ secrets.AQUA_SU_FEED_URL }}
+      AQUA_CODE_SIGN_IDENTITY: ${{ secrets.AQUA_CODE_SIGN_IDENTITY }}
+      AQUA_SPARKLE_PUBLIC_ED_KEY: ${{ secrets.AQUA_SPARKLE_PUBLIC_ED_KEY }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Ensure release is based on main
+        shell: bash
+        run: |
+          git fetch origin main --depth=1
+          if ! git merge-base --is-ancestor HEAD origin/main; then
+            echo "Releases must be created from commits that are already on main." >&2
+            echo "Merge dev into main before tagging or running this workflow." >&2
+            exit 1
+          fi
+
+      - name: Resolve release version
+        shell: bash
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_REF_TYPE: ${{ github.ref_type }}
+        run: |
+          app_version="$(
+            xcodebuild \
+              -project Tahoe.xcodeproj \
+              -scheme Aqua \
+              -configuration Release \
+              -showBuildSettings \
+            | awk -F' = ' '$1 ~ /MARKETING_VERSION$/ { print $2; exit }'
+          )"
+
+          if [[ -z "$app_version" ]]; then
+            echo "Unable to resolve MARKETING_VERSION for Aqua." >&2
+            exit 1
+          fi
+
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            tag_version="${GITHUB_REF_NAME#v}"
+            if [[ "$app_version" != "$tag_version" ]]; then
+              echo "Tag version does not match app version:" >&2
+              echo "  Tag:         $tag_version" >&2
+              echo "  App version: $app_version" >&2
+              exit 1
+            fi
+          fi
+
+          echo "RELEASE_VERSION=$app_version" >> "$GITHUB_ENV"
+          rm -rf release
+          mkdir -p release
+
+      - name: Validate required release secrets
+        shell: bash
+        env:
+          APPLE_DEVELOPER_ID_APPLICATION_P12_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION_P12_BASE64 }}
+          APPLE_DEVELOPER_ID_APPLICATION_P12_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION_P12_PASSWORD }}
+          APPLE_KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_KEY_P8: ${{ secrets.APPLE_NOTARY_KEY_P8 }}
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+          AQUA_SSH_KEY: ${{ secrets.AQUA_SSH_KEY }}
+        run: |
+          required_vars=(
+            APPLE_DEVELOPER_ID_APPLICATION_P12_BASE64
+            APPLE_DEVELOPER_ID_APPLICATION_P12_PASSWORD
+            APPLE_KEYCHAIN_PASSWORD
+            APPLE_NOTARY_ISSUER_ID
+            APPLE_NOTARY_KEY_ID
+            APPLE_NOTARY_KEY_P8
+            SPARKLE_PRIVATE_KEY
+            AQUA_SPARKLE_PUBLIC_ED_KEY
+            AQUA_SSH_HOST
+            AQUA_SSH_USER
+            AQUA_SSH_KEY
+          )
+
+          missing=()
+          for var_name in "${required_vars[@]}"; do
+            if [[ -z "${!var_name:-}" ]]; then
+              missing+=("$var_name")
+            fi
+          done
+
+          if (( ${#missing[@]} > 0 )); then
+            echo "Missing required release secrets:" >&2
+            printf '  %s\n' "${missing[@]}" >&2
+            exit 1
+          fi
+
+      - name: Import Developer ID certificate
+        shell: bash
+        env:
+          APPLE_DEVELOPER_ID_APPLICATION_P12_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION_P12_BASE64 }}
+          APPLE_DEVELOPER_ID_APPLICATION_P12_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION_P12_PASSWORD }}
+          APPLE_KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+        run: |
+          CERT_PATH="$RUNNER_TEMP/developer-id-application.p12"
+          KEYCHAIN_PATH="$RUNNER_TEMP/aqua-release.keychain-db"
+
+          printf '%s' "$APPLE_DEVELOPER_ID_APPLICATION_P12_BASE64" | base64 -D > "$CERT_PATH"
+
+          security create-keychain -p "$APPLE_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$APPLE_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERT_PATH" \
+            -k "$KEYCHAIN_PATH" \
+            -P "$APPLE_DEVELOPER_ID_APPLICATION_P12_PASSWORD" \
+            -T /usr/bin/codesign \
+            -T /usr/bin/security \
+            -T /usr/bin/xcrun
+          security list-keychains -d user -s "$KEYCHAIN_PATH" login.keychain-db
+          security default-keychain -s "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$APPLE_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
+      - name: Configure notarytool profile
+        shell: bash
+        env:
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_KEY_P8: ${{ secrets.APPLE_NOTARY_KEY_P8 }}
+        run: |
+          NOTARY_KEY_PATH="$RUNNER_TEMP/AuthKey_${APPLE_NOTARY_KEY_ID}.p8"
+          printf '%s' "$APPLE_NOTARY_KEY_P8" > "$NOTARY_KEY_PATH"
+
+          xcrun notarytool store-credentials "$AQUA_NOTARY_PROFILE" \
+            --key "$NOTARY_KEY_PATH" \
+            --key-id "$APPLE_NOTARY_KEY_ID" \
+            --issuer "$APPLE_NOTARY_ISSUER_ID"
+
+      - name: Prepare Sparkle private key
+        shell: bash
+        env:
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          SPARKLE_KEY_PATH="$RUNNER_TEMP/sparkle-private-key.txt"
+          printf '%s' "$SPARKLE_PRIVATE_KEY" > "$SPARKLE_KEY_PATH"
+          chmod 600 "$SPARKLE_KEY_PATH"
+          echo "SPARKLE_PRIVATE_KEY_FILE=$SPARKLE_KEY_PATH" >> "$GITHUB_ENV"
+
+      - name: Prepare SSH deployment credentials
+        shell: bash
+        env:
+          AQUA_SSH_KEY: ${{ secrets.AQUA_SSH_KEY }}
+          AQUA_SSH_KNOWN_HOSTS: ${{ secrets.AQUA_SSH_KNOWN_HOSTS }}
+        run: |
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+
+          SSH_KEY_PATH="$HOME/.ssh/aqua_deploy_key"
+          printf '%s' "$AQUA_SSH_KEY" > "$SSH_KEY_PATH"
+          chmod 600 "$SSH_KEY_PATH"
+          echo "AQUA_SSH_KEY_FILE=$SSH_KEY_PATH" >> "$GITHUB_ENV"
+
+          if [[ -n "${AQUA_SSH_KNOWN_HOSTS:-}" ]]; then
+            printf '%s\n' "$AQUA_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          else
+            ssh-keyscan -H "$AQUA_SSH_HOST" >> "$HOME/.ssh/known_hosts"
+          fi
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Release Aqua
+        run: ./scripts/release_aqua.sh
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aqua-release-v${{ env.RELEASE_VERSION }}
+          path: |
+            release/Aqua-${{ env.RELEASE_VERSION }}/Aqua-${{ env.RELEASE_VERSION }}.zip
+            release/Aqua-${{ env.RELEASE_VERSION }}/${{ env.AQUA_APPCAST_FILENAME || 'appcast.xml' }}
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          overwrite_files: true
+          tag_name: v${{ env.RELEASE_VERSION }}
+          files: |
+            release/Aqua-${{ env.RELEASE_VERSION }}/Aqua-${{ env.RELEASE_VERSION }}.zip
+            release/Aqua-${{ env.RELEASE_VERSION }}/${{ env.AQUA_APPCAST_FILENAME || 'appcast.xml' }}

@@ -33,6 +33,14 @@ final class SystemMonitor: ObservableObject {
 
     private init() {
         AlertMonitor.requestPermission()
+        // Pre-warm monitors so their internal "previous sample" baselines are
+        // set before the first real tick. Without this, the first delta is
+        // measured from app launch (lots of startup I/O, CPU bursts) and the
+        // graphs spike wildly before settling.
+        _ = cpuMon.sample()
+        _ = gpuMon.sample()
+        _ = netMon.sample()
+        _ = diskMon.sample()
         start()
         observeThermal()
         observeInterval()
@@ -42,7 +50,7 @@ final class SystemMonitor: ObservableObject {
 
     func snapshot() -> String {
         """
-        ── Tahoe Snapshot · \(Date().formatted(date: .abbreviated, time: .standard)) ──
+        ── Aqua Snapshot · \(Date().formatted(date: .abbreviated, time: .standard)) ──
         CPU      \(Int(cpu.total))%  (\(SystemInfo.cpuSubtitle))
         GPU      \(Int(gpu.utilization))%  (\(SystemInfo.gpuSubtitle))
         Memory   \(String(format: "%.2f", memory.usedGB)) / \(Int(memory.totalGB)) GB  (\(String(format: "%.0f", memory.usedGB / max(memory.totalGB,1) * 100))%)
@@ -73,10 +81,10 @@ final class SystemMonitor: ObservableObject {
         var c     = cpuMon.sample()
         var g     = gpuMon.sample()
         var m     = memMon.sample()
-        var p     = pwrMon.sample()
         var n     = netMon.sample()
         var d     = diskMon.sample()
         var temp  = smcMon.sample()
+        var p     = pwrMon.sample(cpu: c, gpu: g, temperature: temp)
         let procs = procMon.sample()
 
         let memPct = m.usedGB / max(m.totalGB, 1) * 100
@@ -91,13 +99,14 @@ final class SystemMonitor: ObservableObject {
         )
 
         Task { @MainActor [self] in
-            c.history    = Self.roll(self.cpu.history,         appending: c.total)
-            g.history    = Self.roll(self.gpu.history,         appending: g.utilization)
-            m.history    = Self.roll(self.memory.history,      appending: memPct)
-            p.history    = Self.roll(self.power.history,       appending: p.totalWatts)
-            n.history    = Self.roll(self.network.history,     appending: n.downMBps)
-            d.history    = Self.roll(self.disk.history,        appending: d.readMBps + d.writeMBps)
-            temp.history = Self.roll(self.temperature.history, appending: temp.cpuDie)
+            c.history     = Self.roll(self.cpu.history,         appending: c.total)
+            c.coreHistory = Self.rollCores(self.cpu.coreHistory, appending: c.cores)
+            g.history     = Self.roll(self.gpu.history,         appending: g.utilization)
+            m.history     = Self.roll(self.memory.history,      appending: memPct)
+            p.history     = Self.roll(self.power.history,       appending: p.totalWatts)
+            n.history     = Self.roll(self.network.history,     appending: n.downMBps)
+            d.history     = Self.roll(self.disk.history,        appending: d.readMBps + d.writeMBps)
+            temp.history  = Self.roll(self.temperature.history, appending: temp.cpuDie)
 
             withAnimation(.easeOut(duration: 0.35)) {
                 self.cpu         = c
@@ -117,7 +126,9 @@ final class SystemMonitor: ObservableObject {
             forName: ProcessInfo.thermalStateDidChangeNotification,
             object: nil, queue: .main
         ) { [weak self] _ in
-            self?.thermalState = ProcessInfo.processInfo.thermalState
+            Task { @MainActor in
+                self?.thermalState = ProcessInfo.processInfo.thermalState
+            }
         }
     }
 
@@ -143,5 +154,19 @@ final class SystemMonitor: ObservableObject {
             h.removeFirst(h.count - TahoeTokens.Timing.sparklineHistory)
         }
         return h
+    }
+
+    private static func rollCores(_ coreHistory: [[Double]], appending cores: [Double]) -> [[Double]] {
+        let count = cores.count
+        var result = coreHistory.count == count ? coreHistory : Array(repeating: [], count: count)
+        for i in 0..<count {
+            var h = result[i]
+            h.append(cores[i])
+            if h.count > TahoeTokens.Timing.sparklineHistory {
+                h.removeFirst(h.count - TahoeTokens.Timing.sparklineHistory)
+            }
+            result[i] = h
+        }
+        return result
     }
 }
