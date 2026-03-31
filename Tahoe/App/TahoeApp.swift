@@ -27,7 +27,12 @@ struct TahoeApp: App {
             }
 
             CommandGroup(after: .appInfo) {
-                CheckForUpdatesView(updater: updater.updater)
+                if let sparkUpdater = updater.updater {
+                    CheckForUpdatesView(updater: sparkUpdater)
+                } else {
+                    Button("Check for Updates…") {}
+                        .disabled(true)
+                }
 
                 Divider()
 

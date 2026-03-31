@@ -59,15 +59,11 @@ final class AppUpdater: ObservableObject {
 
 @MainActor
 final class CheckForUpdatesViewModel: ObservableObject {
-    @Published private(set) var canCheckForUpdates = false
+    @Published var canCheckForUpdates = false
 
     private var cancellable: AnyCancellable?
 
-    init(updater: SPUUpdater?) {
-        guard let updater else {
-            return
-        }
-
+    init(updater: SPUUpdater) {
         canCheckForUpdates = updater.canCheckForUpdates
         cancellable = updater.publisher(for: \.canCheckForUpdates)
             .receive(on: RunLoop.main)
@@ -78,19 +74,19 @@ final class CheckForUpdatesViewModel: ObservableObject {
 }
 
 struct CheckForUpdatesView: View {
-    @StateObject private var viewModel: CheckForUpdatesViewModel
-    private let updater: SPUUpdater?
+    @ObservedObject private var viewModel: CheckForUpdatesViewModel
+    private let updater: SPUUpdater
 
-    init(updater: SPUUpdater?) {
+    init(updater: SPUUpdater) {
         self.updater = updater
-        _viewModel = StateObject(wrappedValue: CheckForUpdatesViewModel(updater: updater))
+        _viewModel = ObservedObject(wrappedValue: CheckForUpdatesViewModel(updater: updater))
     }
 
     var body: some View {
         Button("Check for Updates…") {
-            updater?.checkForUpdates()
+            updater.checkForUpdates()
         }
-        .disabled(updater == nil || !viewModel.canCheckForUpdates)
+        .disabled(!viewModel.canCheckForUpdates)
     }
 }
 
@@ -122,7 +118,12 @@ struct UpdaterSettingsView: View {
                     updater?.automaticallyDownloadsUpdates = newValue
                 }
 
-            CheckForUpdatesView(updater: updater)
+            if let updater {
+                CheckForUpdatesView(updater: updater)
+            } else {
+                Button("Check for Updates…") {}
+                    .disabled(true)
+            }
 
             if let configurationError {
                 Text(configurationError)
