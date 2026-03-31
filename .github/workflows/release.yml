@@ -192,15 +192,33 @@ jobs:
         shell: bash
         env:
           AQUA_SSH_KEY: ${{ secrets.AQUA_SSH_KEY }}
+          AQUA_SSH_KEY_PASSPHRASE: ${{ secrets.AQUA_SSH_KEY_PASSPHRASE }}
           AQUA_SSH_KNOWN_HOSTS: ${{ secrets.AQUA_SSH_KNOWN_HOSTS }}
         run: |
           mkdir -p "$HOME/.ssh"
           chmod 700 "$HOME/.ssh"
 
           SSH_KEY_PATH="$HOME/.ssh/aqua_deploy_key"
-          printf '%s' "$AQUA_SSH_KEY" > "$SSH_KEY_PATH"
+          NORMALIZED_SSH_KEY="$AQUA_SSH_KEY"
+          if [[ "$NORMALIZED_SSH_KEY" == *'\\n'* ]]; then
+            NORMALIZED_SSH_KEY="${NORMALIZED_SSH_KEY//\\n/$'\n'}"
+          fi
+          printf '%s\n' "$NORMALIZED_SSH_KEY" | perl -0pe 's/\r\n/\n/g' > "$SSH_KEY_PATH"
           chmod 600 "$SSH_KEY_PATH"
           echo "AQUA_SSH_KEY_FILE=$SSH_KEY_PATH" >> "$GITHUB_ENV"
+
+          if [[ -n "${AQUA_SSH_KEY_PASSPHRASE:-}" ]]; then
+            eval "$(ssh-agent -s)"
+            ASKPASS_SCRIPT="$RUNNER_TEMP/ssh_askpass.sh"
+            cat > "$ASKPASS_SCRIPT" <<'EOF'
+#!/bin/sh
+printf '%s\n' "$AQUA_SSH_KEY_PASSPHRASE"
+EOF
+            chmod 700 "$ASKPASS_SCRIPT"
+            DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force setsid ssh-add "$SSH_KEY_PATH" </dev/null
+            echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+            echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
+          fi
 
           if [[ -n "${AQUA_SSH_KNOWN_HOSTS:-}" ]]; then
             printf '%s\n' "$AQUA_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
