@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+export SPARKLE_PRIVATE_KEY_FILE="${SPARKLE_PRIVATE_KEY_FILE:-$HOME/Desktop/aqua-sparkle-private-key.txt}"
+export AQUA_SPARKLE_PUBLIC_ED_KEY="${AQUA_SPARKLE_PUBLIC_ED_KEY:-cSefTWZWrIo+umMR+wygB4EDV3BOSt2zwVlmun/R/zM=}"
+export AQUA_NOTARY_PROFILE="${AQUA_NOTARY_PROFILE:-aqua-notary}"
+
+"$ROOT_DIR/scripts/release_aqua.sh" "$@"

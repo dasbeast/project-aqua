@@ -18,9 +18,11 @@ struct HistoryChartView: View {
     var body: some View {
         Canvas { ctx, size in
             guard history.count > 1 else { return }
-            let w    = size.width
-            let h    = size.height
-            let step = w / Double(history.count - 1)
+            let w        = size.width
+            let h        = size.height
+            let maxCount = TahoeTokens.Timing.sparklineHistory
+            let step     = w / Double(maxCount - 1)
+            let offset   = maxCount - history.count
 
             // Grid lines at 25 / 50 / 75 %
             for pct in [0.25, 0.5, 0.75] {
@@ -35,7 +37,7 @@ struct HistoryChartView: View {
             var path = Path()
             for (i, v) in history.enumerated() {
                 let norm = (v / maxValue).clamped(to: 0...1)
-                let x    = Double(i) * step
+                let x    = Double(i + offset) * step
                 let y    = h - norm * h * 0.88 - h * 0.06
                 i == 0 ? path.move(to: CGPoint(x: x, y: y))
                        : path.addLine(to: CGPoint(x: x, y: y))
@@ -44,7 +46,7 @@ struct HistoryChartView: View {
             // Gradient fill
             var fill = path
             fill.addLine(to: CGPoint(x: w, y: h))
-            fill.addLine(to: CGPoint(x: 0, y: h))
+            fill.addLine(to: CGPoint(x: Double(offset) * step, y: h))
             fill.closeSubpath()
             ctx.fill(fill, with: .color(tint.opacity(0.12)))
 
@@ -223,7 +225,7 @@ struct DetailView: View {
             Text("Core Load")
                 .font(TahoeTokens.FontStyle.label).foregroundStyle(.tertiary)
                 .textCase(.uppercase).kerning(0.8)
-            CoreBarsView(cores: monitor.cpu.cores, processes: monitor.processes)
+            CoreBarsView(cores: monitor.cpu.cores, coreHistory: monitor.cpu.coreHistory, processes: monitor.processes)
             if monitor.temperature.cpuDie > 0 {
                 detailRow("Temperature", value: String(format: "%.0f°C", monitor.temperature.cpuDie), tint: TahoeTokens.Color.tempTint)
             }

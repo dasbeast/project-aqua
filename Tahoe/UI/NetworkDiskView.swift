@@ -43,7 +43,7 @@ struct NetworkDiskView: View {
         VStack(alignment: .leading, spacing: 8) {
             // Mini sparkline for the primary row
             if let primary = rows.first, !primary.history.isEmpty {
-                SparklineView(history: primary.history, tint: primary.tint)
+                SparklineView(history: primary.history, tint: primary.tint, height: 72)
             }
 
             VStack(spacing: 5) {

@@ -4,6 +4,7 @@ import AppKit
 
 struct SettingsView: View {
     @EnvironmentObject var monitor: SystemMonitor
+    @EnvironmentObject var updater: AppUpdater
 
     @State private var launchAtLogin = false
     @State private var loginError:   String? = nil
@@ -110,6 +111,15 @@ struct SettingsView: View {
 
                 divider
 
+                sectionHeader("Updates")
+
+                UpdaterSettingsView(
+                    updater: updater.updater,
+                    configurationError: updater.configurationError
+                )
+
+                divider
+
                 sectionHeader("Data")
 
                 Button { copySnapshot() } label: {
@@ -125,7 +135,7 @@ struct SettingsView: View {
                 divider
 
                 HStack {
-                    Text("Tahoe · v0.1 · Project Aqua")
+                    Text("Aqua · v0.0.2 · Project Aqua")
                         .font(TahoeTokens.FontStyle.body).foregroundStyle(.quaternary)
                     Spacer()
                 }

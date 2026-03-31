@@ -1,9 +1,10 @@
 import Darwin
 
 struct CPUState {
-    var total: Double = 0
-    var cores: [Double] = []
-    var history: [Double] = []
+    var total:       Double     = 0
+    var cores:       [Double]   = []
+    var history:     [Double]   = []
+    var coreHistory: [[Double]] = []
 }
 
 final class CPUMonitor {

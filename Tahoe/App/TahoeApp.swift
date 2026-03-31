@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct TahoeApp: App {
     @StateObject  private var monitor     = SystemMonitor.shared
+    @StateObject  private var updater     = AppUpdater()
     @AppStorage("compactMode") private var compactMode = false
     @AppStorage("alwaysOnTop") private var alwaysOnTop = true
     @AppStorage("uiTheme")     private var uiThemeRaw  = AppTheme.tahoe.rawValue
@@ -13,6 +14,7 @@ struct TahoeApp: App {
         WindowGroup {
             DashboardView()
                 .environmentObject(monitor)
+                .environmentObject(updater)
                 .environment(\.appTheme, theme)
         }
         .windowStyle(.hiddenTitleBar)
@@ -25,6 +27,10 @@ struct TahoeApp: App {
             }
 
             CommandGroup(after: .appInfo) {
+                CheckForUpdatesView(updater: updater.updater)
+
+                Divider()
+
                 Button("Copy Snapshot") {
                     let text = monitor.snapshot()
                     NSPasteboard.general.clearContents()
@@ -49,6 +55,7 @@ struct TahoeApp: App {
         MenuBarExtra {
             MenuBarView()
                 .environmentObject(monitor)
+                .environmentObject(updater)
         } label: {
             MenuBarLabel(
                 cpu:    monitor.cpu.total,

@@ -30,7 +30,7 @@ enum TahoeTokens {
             let stored = UserDefaults.standard.double(forKey: "pollInterval")
             return stored > 0 ? stored : 1.0
         }
-        static let sparklineHistory = 120
+        static let sparklineHistory = 40
     }
     enum Alert {
         static let cpuDefault:   Double = 90

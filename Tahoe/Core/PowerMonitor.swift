@@ -8,173 +8,108 @@ struct PowerState {
     var history:    [Double] = []
 }
 
-// MARK: - IOReport-based power monitor (Apple Silicon)
+// MARK: - Stable power estimator
 //
-// Uses the private IOReport framework via dlopen.
-// IOReportSubscriptionRef is an opaque struct pointer — NOT toll-free
-// bridged to CFType — so we store it as UnsafeMutableRawPointer and
-// pass it through C calls without ARC involvement.
-//
-// Energy Model channels return cumulative millijoule counts.
-// Delta between two samples / elapsed seconds / 1000 = watts.
+// The earlier IOReport implementation could crash in distributed builds on
+// newer macOS releases. Until we have a safer direct telemetry path, estimate
+// package power from live CPU/GPU utilization plus chip-specific ceilings.
 
 final class PowerMonitor {
+    private struct PowerProfile {
+        let idleCPU: Double
+        let maxCPU: Double
+        let maxGPU: Double
+        let maxANE: Double
+    }
 
-    // MARK: Private API types
-
-    private typealias CopyChannelsInGroupT = @convention(c) (
-        CFString?, CFString?, UInt32, UInt32, UInt32
-    ) -> Unmanaged<CFMutableDictionary>?
-
-    // First param is IOReportSubscriptionRef — opaque pointer, NOT a CFType.
-    private typealias CreateSubscriptionT = @convention(c) (
-        UnsafeMutableRawPointer?,
-        CFMutableDictionary,
-        UnsafeMutablePointer<Unmanaged<CFMutableDictionary>?>,
-        UInt64,
-        CFTypeRef?
-    ) -> UnsafeMutableRawPointer?          // returns IOReportSubscriptionRef
-
-    private typealias CreateSamplesT = @convention(c) (
-        UnsafeMutableRawPointer?,          // IOReportSubscriptionRef
-        CFMutableDictionary,
-        CFTypeRef?
-    ) -> Unmanaged<CFDictionary>?
-
-    private typealias CreateSamplesDeltaT = @convention(c) (
-        CFDictionary, CFDictionary, CFTypeRef?
-    ) -> Unmanaged<CFDictionary>?
-
-    private typealias IterateT = @convention(c) (
-        CFDictionary,
-        @convention(block) (UnsafeRawPointer) -> Int32
-    ) -> Void
-
-    private typealias GetGroupT        = @convention(c) (UnsafeRawPointer) -> Unmanaged<CFString>?
-    private typealias GetChannelNameT  = @convention(c) (UnsafeRawPointer) -> Unmanaged<CFString>?
-    private typealias GetIntegerValueT = @convention(c) (UnsafeRawPointer, UnsafeMutablePointer<Int32>) -> Int64
-
-    // MARK: Loaded symbols
-
-    private let lib:                UnsafeMutableRawPointer?
-    private let copyChannelsInGroup: CopyChannelsInGroupT?
-    private let createSubscription:  CreateSubscriptionT?
-    private let createSamples:       CreateSamplesT?
-    private let createSamplesDelta:  CreateSamplesDeltaT?
-    private let iterate:             IterateT?
-    private let getGroup:            GetGroupT?
-    private let getChannelName:      GetChannelNameT?
-    private let getIntegerValue:     GetIntegerValueT?
-
-    // MARK: Subscription state (raw pointer — no ARC)
-
-    private var subscription:   UnsafeMutableRawPointer?
-    private var subbedChannels: CFMutableDictionary?
-    private var prevSample:     CFDictionary?
-    private var prevTime:       Date = Date()
-
-    // MARK: Init
+    private let profile: PowerProfile
+    private var previous = PowerState()
 
     init() {
-        // macOS 15+: shipped as a flat dylib, not a private framework
-        let libHandle = dlopen("/usr/lib/libIOReport.dylib", RTLD_LAZY)
-        func sym<T>(_ name: String) -> T? {
-            guard let libHandle, let p = dlsym(libHandle, name) else { return nil }
-            return unsafeBitCast(p, to: T.self)
-        }
-        lib                 = libHandle
-        copyChannelsInGroup = sym("IOReportCopyChannelsInGroup")
-        createSubscription  = sym("IOReportCreateSubscription")
-        createSamples       = sym("IOReportCreateSamples")
-        createSamplesDelta  = sym("IOReportCreateSamplesDelta")
-        iterate             = sym("IOReportIterate")
-        getGroup            = sym("IOReportChannelGetGroup")
-        getChannelName      = sym("IOReportChannelGetChannelName")
-        getIntegerValue     = sym("IOReportSimpleGetIntegerValue")
-        setup()
+        profile = Self.makeProfile()
     }
 
-    private func setup() {
-        guard let copyChannelsInGroup, let createSubscription, let createSamples else {
-            NSLog("[PowerMonitor] ❌ missing symbols")
-            return
-        }
+    func sample(cpu: CPUState, gpu: GPUState, temperature: TemperatureState) -> PowerState {
+        let cpuLoad = (cpu.total / 100).clamped(to: 0...1)
+        let gpuLoad = (gpu.utilization / 100).clamped(to: 0...1)
 
-        guard let energyCh = copyChannelsInGroup("Energy Model" as CFString, nil, 0, 0, 0)?
-                .takeRetainedValue() else {
-            NSLog("[PowerMonitor] ❌ copyChannelsInGroup returned nil")
-            return
-        }
-        NSLog("[PowerMonitor] ✅ got channels dict")
+        let thermalFactor: Double = {
+            guard temperature.cpuDie > 0 else { return 1.0 }
+            let normalized = ((temperature.cpuDie - 45) / 45).clamped(to: 0...1)
+            return 0.95 + normalized * 0.15
+        }()
 
-        var subbedRef: Unmanaged<CFMutableDictionary>? = nil
-        guard let sub = createSubscription(nil, energyCh, &subbedRef, 0, nil) else {
-            NSLog("[PowerMonitor] ❌ createSubscription returned nil")
-            return
-        }
-        NSLog("[PowerMonitor] ✅ subscription created, subbedRef nil=\(subbedRef == nil)")
+        let cpuDynamic = (profile.maxCPU - profile.idleCPU) * pow(cpuLoad, 1.18) * thermalFactor
+        let rawCPU = profile.idleCPU + cpuDynamic
+        let rawGPU = profile.maxGPU * pow(gpuLoad, 1.12) * thermalFactor
 
-        subscription   = sub
-        subbedChannels = subbedRef?.takeRetainedValue()
-        if let sc = subbedChannels {
-            let s = createSamples(sub, sc, nil)?.takeRetainedValue()
-            prevSample = s
-            NSLog("[PowerMonitor] ✅ initial sample nil=\(s == nil)")
+        // We do not currently have a safe ANE utilization signal, so keep it at
+        // zero unless the package is heavily loaded and GPU is mostly idle.
+        let inferredANELoad = max(0, cpuLoad - gpuLoad * 0.6)
+        let rawANE = profile.maxANE * pow(inferredANELoad, 1.6) * 0.35
+
+        let unsmoothed = PowerState(
+            cpuWatts: rawCPU.clamped(to: 0...profile.maxCPU),
+            gpuWatts: rawGPU.clamped(to: 0...profile.maxGPU),
+            aneWatts: rawANE.clamped(to: 0...profile.maxANE)
+        )
+
+        let smoothed = PowerState(
+            cpuWatts: Self.smooth(previous.cpuWatts, unsmoothed.cpuWatts),
+            gpuWatts: Self.smooth(previous.gpuWatts, unsmoothed.gpuWatts),
+            aneWatts: Self.smooth(previous.aneWatts, unsmoothed.aneWatts)
+        )
+
+        previous = smoothed
+        return smoothed
+    }
+
+    private static func smooth(_ previous: Double, _ current: Double) -> Double {
+        if previous == 0 { return current }
+        return (previous * 0.62) + (current * 0.38)
+    }
+
+    private static func makeProfile() -> PowerProfile {
+        let chip = SystemInfo.chipName.lowercased()
+        let pCores = max(SystemInfo.performanceCoreCount, 0)
+        let eCores = max(SystemInfo.efficiencyCoreCount, 0)
+        let gpuCores = max(SystemInfo.gpuCoreCount, 0)
+
+        let baseCPU = max(7.0, Double(pCores) * 3.6 + Double(eCores) * 1.15)
+        let baseGPU = max(8.0, Double(gpuCores) * 1.45)
+
+        let cpuScale: Double
+        let gpuScale: Double
+        let idleCPU: Double
+        let aneMax: Double
+
+        if chip.contains("ultra") {
+            cpuScale = 1.35
+            gpuScale = 1.35
+            idleCPU = 4.0
+            aneMax = 10.0
+        } else if chip.contains("max") {
+            cpuScale = 1.18
+            gpuScale = 1.25
+            idleCPU = 3.0
+            aneMax = 8.0
+        } else if chip.contains("pro") {
+            cpuScale = 1.05
+            gpuScale = 1.1
+            idleCPU = 2.4
+            aneMax = 7.0
         } else {
-            NSLog("[PowerMonitor] ❌ subbedChannels is nil")
-        }
-        prevTime = Date()
-    }
-
-    // MARK: Sampling
-
-    func sample() -> PowerState {
-        guard let subscription, let subbedChannels,
-              let createSamples, let createSamplesDelta, let iterate,
-              let getChannelName, let getIntegerValue,
-              let prev = prevSample else {
-            return PowerState()
+            cpuScale = 0.92
+            gpuScale = 0.9
+            idleCPU = 1.8
+            aneMax = 6.0
         }
 
-        guard let current = createSamples(subscription, subbedChannels, nil)?
-                .takeRetainedValue() else { return PowerState() }
-
-        let now     = Date()
-        let elapsed = max(now.timeIntervalSince(prevTime), 1e-3)
-        prevTime   = now
-        prevSample = current
-
-        guard let delta = createSamplesDelta(prev, current, nil)?
-                .takeRetainedValue() else { return PowerState() }
-
-        final class Acc { var cpu = 0.0; var gpu = 0.0; var ane = 0.0 }
-        let acc = Acc()
-
-        iterate(delta) { [acc, getChannelName, getIntegerValue] ref in
-            guard let name = getChannelName(ref)?.takeUnretainedValue() else { return 0 }
-            var unused: Int32 = 0
-            let mj = Double(getIntegerValue(ref, &unused))
-
-            // Use only the aggregate rollup channels to avoid double-counting.
-            // Confirmed channel names from IOReport on M4/macOS 15:
-            //   "CPU Energy" = ECPU + PCPU cluster total (mJ delta)
-            //   "GPU"        = GPU core energy (mJ delta)  — NOT "GPU Energy" (monotonic μJ)
-            //   "ANE"        = Neural Engine (mJ delta)
-            switch name as String {
-            case "CPU Energy": acc.cpu += mj
-            case "GPU":        acc.gpu += mj
-            case "ANE":        acc.ane += mj
-            default:           break
-            }
-            return 0  // kIOReportIterOk
-        }
-
-        // mJ / elapsed_s / 1000 = W
-        let scale = 1.0 / (elapsed * 1_000.0)
-        return PowerState(
-            cpuWatts: (acc.cpu * scale).clamped(to: 0...300),
-            gpuWatts: (acc.gpu * scale).clamped(to: 0...150),
-            aneWatts: (acc.ane * scale).clamped(to: 0...30)
+        return PowerProfile(
+            idleCPU: idleCPU,
+            maxCPU: (baseCPU * cpuScale).clamped(to: 8...85),
+            maxGPU: (baseGPU * gpuScale).clamped(to: 6...95),
+            maxANE: aneMax
         )
     }
 }
