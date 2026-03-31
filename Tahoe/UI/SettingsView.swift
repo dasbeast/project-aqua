@@ -135,7 +135,7 @@ struct SettingsView: View {
                 divider
 
                 HStack {
-                    Text("Aqua · v0.0.7 · Project Aqua")
+                    Text("Aqua · v0.0.8 · Project Aqua")
                         .font(TahoeTokens.FontStyle.body).foregroundStyle(.quaternary)
                     Spacer()
                 }
