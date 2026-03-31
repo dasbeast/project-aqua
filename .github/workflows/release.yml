@@ -212,7 +212,7 @@ jobs:
             ASKPASS_SCRIPT="$RUNNER_TEMP/ssh_askpass.sh"
             printf '%s\n%s\n' '#!/bin/sh' 'printf "%s\n" "$AQUA_SSH_KEY_PASSPHRASE"' > "$ASKPASS_SCRIPT"
             chmod 700 "$ASKPASS_SCRIPT"
-            DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force setsid ssh-add "$SSH_KEY_PATH" </dev/null
+            DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force ssh-add "$SSH_KEY_PATH" </dev/null
             echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
             echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
           fi
