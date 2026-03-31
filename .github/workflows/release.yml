@@ -179,7 +179,12 @@ jobs:
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
         run: |
           SPARKLE_KEY_PATH="$RUNNER_TEMP/sparkle-private-key.txt"
-          printf '%s' "$SPARKLE_PRIVATE_KEY" > "$SPARKLE_KEY_PATH"
+          NORMALIZED_SPARKLE_KEY="$(printf '%s' "$SPARKLE_PRIVATE_KEY" | tr -d '\r\n\t ')"
+          if [[ -z "$NORMALIZED_SPARKLE_KEY" ]]; then
+            echo "SPARKLE_PRIVATE_KEY secret is empty after normalization." >&2
+            exit 1
+          fi
+          printf '%s' "$NORMALIZED_SPARKLE_KEY" > "$SPARKLE_KEY_PATH"
           chmod 600 "$SPARKLE_KEY_PATH"
           echo "SPARKLE_PRIVATE_KEY_FILE=$SPARKLE_KEY_PATH" >> "$GITHUB_ENV"
 
@@ -214,6 +219,7 @@ jobs:
           path: |
             release/Aqua-${{ env.RELEASE_VERSION }}/Aqua-${{ env.RELEASE_VERSION }}.zip
             release/Aqua-${{ env.RELEASE_VERSION }}/${{ env.AQUA_APPCAST_FILENAME || 'appcast.xml' }}
+            release/Aqua-${{ env.RELEASE_VERSION }}/index.html
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
@@ -224,3 +230,4 @@ jobs:
           files: |
             release/Aqua-${{ env.RELEASE_VERSION }}/Aqua-${{ env.RELEASE_VERSION }}.zip
             release/Aqua-${{ env.RELEASE_VERSION }}/${{ env.AQUA_APPCAST_FILENAME || 'appcast.xml' }}
+            release/Aqua-${{ env.RELEASE_VERSION }}/index.html

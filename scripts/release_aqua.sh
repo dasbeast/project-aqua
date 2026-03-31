@@ -122,10 +122,13 @@ RELEASE_DIR="$ROOT_DIR/release/Aqua-$SHORT_VERSION"
 ZIP_FILENAME="Aqua-$SHORT_VERSION.zip"
 ZIP_PATH="$RELEASE_DIR/$ZIP_FILENAME"
 APPCAST_PATH="$RELEASE_DIR/$APPCAST_FILENAME"
+LANDING_PAGE_SOURCE="$ROOT_DIR/index.html"
+LANDING_PAGE_PATH="$RELEASE_DIR/index.html"
 NOTARY_ZIP_PATH="/tmp/Aqua-$SHORT_VERSION-notarize.zip"
 DOWNLOAD_PREFIX="${FEED_BASE_URL%/}/"
 
 mkdir -p "$RELEASE_DIR"
+require_file "$LANDING_PAGE_SOURCE"
 
 echo "Injecting Sparkle keys into Aqua bundle..."
 /usr/libexec/PlistBuddy -c "Delete :SUFeedURL" "$INFO_PLIST" 2>/dev/null || true
@@ -160,8 +163,9 @@ echo "Stapling notarization ticket..."
 xcrun stapler staple "$APP_PATH"
 
 echo "Packaging Aqua $SHORT_VERSION ($BUILD_VERSION)..."
-rm -f "$ZIP_PATH" "$APPCAST_PATH"
+rm -f "$ZIP_PATH" "$APPCAST_PATH" "$LANDING_PAGE_PATH"
 ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$ZIP_PATH"
+cp "$LANDING_PAGE_SOURCE" "$LANDING_PAGE_PATH"
 
 echo "Generating appcast..."
 "$GENERATE_APPCAST" \
@@ -204,6 +208,7 @@ echo
 echo "Artifacts ready:"
 echo "  $ZIP_PATH"
 echo "  $APPCAST_PATH"
+echo "  $LANDING_PAGE_PATH"
 
 if [[ "$SKIP_UPLOAD" == "1" ]]; then
   echo
@@ -221,10 +226,11 @@ fi
 echo
 echo "Uploading release to $REMOTE_TARGET:$REMOTE_DIR ..."
 ssh "${SSH_OPTIONS[@]}" "$REMOTE_TARGET" "mkdir -p '$REMOTE_DIR'"
-scp "${SSH_OPTIONS[@]}" "$ZIP_PATH" "$APPCAST_PATH" "$REMOTE_TARGET:$REMOTE_DIR/"
+scp "${SSH_OPTIONS[@]}" "$ZIP_PATH" "$APPCAST_PATH" "$LANDING_PAGE_PATH" "$REMOTE_TARGET:$REMOTE_DIR/"
 
 echo
 echo "Upload complete."
 echo "Check these URLs:"
+echo "  ${DOWNLOAD_PREFIX}index.html"
 echo "  ${DOWNLOAD_PREFIX}${APPCAST_FILENAME}"
 echo "  ${DOWNLOAD_PREFIX}${ZIP_FILENAME}"
