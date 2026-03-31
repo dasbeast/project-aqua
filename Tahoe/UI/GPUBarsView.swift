@@ -21,7 +21,6 @@ struct GPUBarsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             dotMatrix
-            pipelineBars
         }
     }
 
@@ -74,60 +73,6 @@ struct GPUBarsView: View {
                     Capsule(style: .continuous)
                         .fill(TahoeTokens.Color.gpuTint.opacity(0.13))
                 }
-        }
-    }
-
-    // MARK: - Pipeline mini-bars (Tiler / Renderer)
-
-    private var pipelineBars: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            pipelineBar(label: "Tiler",
-                        note:  "Geometry & vertices",
-                        value: gpu.tilerUtil,
-                        tint:  Color(red: 0.65, green: 0.35, blue: 0.90))
-                .tooltip("Processes 3D geometry — turning shapes and triangles into pixel positions. High tiler load means complex geometry is on screen, like a dense game world or 3D model.")
-            pipelineBar(label: "Renderer",
-                        note:  "Fragment & compute",
-                        value: gpu.rendererUtil,
-                        tint:  Color(red: 0.44, green: 0.22, blue: 0.70))
-                .tooltip("Colours in every pixel — applying textures, lighting, shadows, and effects. High renderer load means visually intense content is being drawn, or heavy GPU compute is running.")
-        }
-    }
-
-    @ViewBuilder
-    private func pipelineBar(label: String, note: String, value: Double, tint: Color) -> some View {
-        HStack(spacing: 6) {
-            VStack(alignment: .leading, spacing: 1) {
-                Text(label)
-                    .font(.system(size: 9, weight: .semibold))
-                    .foregroundStyle(tint.opacity(0.9))
-                Text(note)
-                    .font(.system(size: 7, weight: .regular))
-                    .foregroundStyle(.quaternary)
-            }
-            .frame(width: 62, alignment: .leading)
-
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .fill(Color.primary.opacity(0.06))
-                    RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .fill(LinearGradient(
-                            colors: [tint.opacity(0.85), tint.opacity(0.5)],
-                            startPoint: .leading, endPoint: .trailing))
-                        .frame(width: geo.size.width * max(value, 0) / 100)
-                }
-            }
-            .frame(height: 5)
-            .animation(
-                reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.8),
-                value: value
-            )
-
-            Text(String(format: "%.0f%%", value))
-                .font(.system(size: 9, weight: .medium, design: .monospaced))
-                .foregroundStyle(tint.opacity(0.85))
-                .frame(width: 30, alignment: .trailing)
         }
     }
 

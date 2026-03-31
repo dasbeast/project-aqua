@@ -19,7 +19,7 @@ struct ProcessListView: View {
                     .frame(width: 52, alignment: .trailing)
             }
             .font(TahoeTokens.FontStyle.label)
-            .foregroundStyle(.tertiary)
+            .foregroundStyle(TahoeTokens.Color.textTertiary)
             .textCase(.uppercase)
             .kerning(0.8)
             .padding(.bottom, 7)
@@ -29,7 +29,7 @@ struct ProcessListView: View {
                     // Rank badge
                     Text("\(idx + 1)")
                         .font(.system(size: 9, weight: .medium, design: .monospaced))
-                        .foregroundStyle(.quaternary)
+                        .foregroundStyle(TahoeTokens.Color.textQuaternary)
                         .frame(width: 16, alignment: .leading)
 
                     Text(p.name.isEmpty ? "–" : p.name)
@@ -49,7 +49,7 @@ struct ProcessListView: View {
 
                     Text(memLabel(p.memoryGB))
                         .font(.system(size: 10, weight: .regular, design: .monospaced))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(TahoeTokens.Color.textSecondary)
                         .frame(width: 52, alignment: .trailing)
                 }
                 .padding(.vertical, 4)
@@ -67,7 +67,7 @@ struct ProcessListView: View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 2, style: .continuous)
-                    .fill(Color.primary.opacity(0.05))
+                    .fill(TahoeTokens.Color.textPrimary.opacity(0.08))
                 RoundedRectangle(cornerRadius: 2, style: .continuous)
                     .fill(cpuColor(pct).opacity(0.55))
                     .frame(width: geo.size.width * clamped)

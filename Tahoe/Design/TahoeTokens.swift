@@ -11,6 +11,11 @@ enum TahoeTokens {
         static let tempTint  = SwiftUI.Color(red: 0.91, green: 0.38, blue: 0.22)
         static let danger    = SwiftUI.Color(red: 0.91, green: 0.21, blue: 0.17)
         static let warning   = SwiftUI.Color(red: 1.0,  green: 0.58, blue: 0.0)
+        static let textPrimary    = SwiftUI.Color(nsColor: .labelColor)
+        static let textSecondary  = SwiftUI.Color(nsColor: .secondaryLabelColor)
+        static let textTertiary   = SwiftUI.Color(nsColor: .tertiaryLabelColor)
+        static let textQuaternary = SwiftUI.Color(nsColor: .quaternaryLabelColor)
+        static let textMuted      = SwiftUI.Color(nsColor: .quaternaryLabelColor)
     }
     enum Radius {
         static let window: CGFloat = 24

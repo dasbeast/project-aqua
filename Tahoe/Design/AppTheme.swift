@@ -14,6 +14,25 @@ enum AppTheme: Int, CaseIterable {
     }
 }
 
+enum AppColorMode: Int, CaseIterable {
+    case light = 0
+    case dark = 1
+
+    var displayName: String {
+        switch self {
+        case .light: return "Light"
+        case .dark:  return "Dark"
+        }
+    }
+
+    var colorScheme: ColorScheme {
+        switch self {
+        case .light: return .light
+        case .dark:  return .dark
+        }
+    }
+}
+
 // MARK: - SwiftUI environment key
 
 private struct ThemeKey: EnvironmentKey {

@@ -23,7 +23,7 @@ struct DashboardView: View {
 
             GeometryReader { geo in
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 12) {
+                    VStack(spacing: 8) {
                         toolbar
 
                         // Hero row — 4-up when ≥ 560 pt wide, 2×2 grid otherwise
@@ -99,7 +99,9 @@ struct DashboardView: View {
                             }
                         }
                     }
-                    .padding(18)
+                    .padding(.horizontal, 18)
+                    .padding(.bottom, 18)
+                    .padding(.top, -6)
                 }
             }
         }
@@ -135,7 +137,7 @@ struct DashboardView: View {
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(TahoeTokens.Color.textTertiary)
                     .frame(width: 24, height: 24)
                     .contentShape(Rectangle())
             }
@@ -146,7 +148,7 @@ struct DashboardView: View {
                 SettingsView().environmentObject(monitor)
             }
         }
-        .padding(.bottom, -6)
+        .padding(.bottom, 0)
     }
 
     // MARK: - Thermal overlay
@@ -206,16 +208,16 @@ struct DashboardView: View {
             HStack {
                 Text(label)
                     .font(TahoeTokens.FontStyle.label)
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(TahoeTokens.Color.textTertiary)
                     .textCase(.uppercase)
                     .kerning(0.8)
                 Spacer()
                 Text(tag)
                     .font(TahoeTokens.FontStyle.pill)
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
                     .padding(.horizontal, 9)
                     .padding(.vertical, 2)
-                    .background(Color.primary.opacity(0.05))
+                    .background(TahoeTokens.Color.textPrimary.opacity(0.08))
                     .clipShape(Capsule())
             }
             .padding(.bottom, 14)
@@ -229,7 +231,7 @@ struct DashboardView: View {
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
                     .fill(.ultraThinMaterial)
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.75)
+                    .strokeBorder(TahoeTokens.Color.textPrimary.opacity(0.10), lineWidth: 0.75)
                 // Subtle top-edge specular
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
                     .strokeBorder(
@@ -240,7 +242,7 @@ struct DashboardView: View {
                         lineWidth: 1.0
                     )
             }
-            .shadow(color: .black.opacity(0.14), radius: 6, y: 3)
+            .shadow(color: .black.opacity(0.10), radius: 5, y: 1)
         }
     }
 

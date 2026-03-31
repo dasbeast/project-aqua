@@ -12,6 +12,8 @@ struct SettingsView: View {
     @AppStorage("alwaysOnTop")        private var alwaysOnTop    = true
     @AppStorage("compactMode")        private var compactMode    = false
     @AppStorage("uiTheme")            private var uiThemeRaw     = AppTheme.tahoe.rawValue
+    @AppStorage("followSystemAppearance") private var followSystemAppearance = true
+    @AppStorage("manualColorMode")        private var manualColorModeRaw = AppColorMode.dark.rawValue
     @AppStorage("pollInterval")       private var pollInterval   = 1.0
 
     @AppStorage("alertCPUEnabled")    private var alertCPU       = false
@@ -27,6 +29,13 @@ struct SettingsView: View {
         Binding(
             get: { AppTheme(rawValue: uiThemeRaw) ?? .tahoe },
             set: { uiThemeRaw = $0.rawValue }
+        )
+    }
+
+    private var manualColorMode: Binding<AppColorMode> {
+        Binding(
+            get: { AppColorMode(rawValue: manualColorModeRaw) ?? .dark },
+            set: { manualColorModeRaw = $0.rawValue }
         )
     }
 
@@ -74,6 +83,26 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                     .frame(width: 140)
+                }
+
+                Toggle(isOn: $followSystemAppearance) {
+                    settingLabel("Match System Light/Dark", icon: "circle.lefthalf.filled")
+                }
+                .padding(.top, 8)
+
+                if !followSystemAppearance {
+                    HStack {
+                        settingLabel("Appearance", icon: "sun.max")
+                        Spacer()
+                        Picker("", selection: manualColorMode) {
+                            ForEach(AppColorMode.allCases, id: \.rawValue) { mode in
+                                Text(mode.displayName).tag(mode)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(width: 140)
+                    }
+                    .padding(.top, 8)
                 }
 
                 divider
@@ -136,7 +165,7 @@ struct SettingsView: View {
 
                 HStack {
                     Text("Aqua · v0.0.8 · Project Aqua")
-                        .font(TahoeTokens.FontStyle.body).foregroundStyle(.quaternary)
+                        .font(TahoeTokens.FontStyle.body).foregroundStyle(TahoeTokens.Color.textQuaternary)
                     Spacer()
                 }
             }
@@ -151,15 +180,15 @@ struct SettingsView: View {
     @ViewBuilder
     private func sectionHeader(_ title: String) -> some View {
         Text(title)
-            .font(TahoeTokens.FontStyle.label).foregroundStyle(.tertiary)
+            .font(TahoeTokens.FontStyle.label).foregroundStyle(TahoeTokens.Color.textTertiary)
             .textCase(.uppercase).kerning(0.8).padding(.bottom, 8)
     }
 
     @ViewBuilder
     private func settingLabel(_ text: String, icon: String) -> some View {
         HStack(spacing: 7) {
-            Image(systemName: icon).font(.system(size: 11)).foregroundStyle(.secondary).frame(width: 16)
-            Text(text).font(TahoeTokens.FontStyle.body)
+            Image(systemName: icon).font(.system(size: 11)).foregroundStyle(TahoeTokens.Color.textSecondary).frame(width: 16)
+            Text(text).font(TahoeTokens.FontStyle.body).foregroundStyle(TahoeTokens.Color.textPrimary)
         }
     }
 
@@ -176,7 +205,7 @@ struct SettingsView: View {
                     Slider(value: threshold, in: range, step: 5)
                     Text(String(format: "%.0f\(unit)", threshold.wrappedValue))
                         .font(.system(size: 10, weight: .medium, design: .monospaced))
-                        .foregroundStyle(.secondary).frame(width: 52, alignment: .trailing)
+                        .foregroundStyle(TahoeTokens.Color.textSecondary).frame(width: 52, alignment: .trailing)
                 }
                 .padding(.leading, 23)
                 .transition(.opacity.combined(with: .move(edge: .top)))

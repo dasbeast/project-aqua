@@ -9,7 +9,7 @@ private enum CoreKind {
         switch self {
         case .performance: return TahoeTokens.Color.cpuTint
         case .efficiency:  return TahoeTokens.Color.memTint
-        case .unknown:     return Color.primary.opacity(0.55)
+        case .unknown:     return TahoeTokens.Color.textSecondary
         }
     }
 }
@@ -56,7 +56,7 @@ struct CoreBarsView: View {
         .overlay(alignment: .topTrailing) {
             Image(systemName: expanded ? "chevron.up" : "chevron.down")
                 .font(.system(size: 8, weight: .medium))
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(TahoeTokens.Color.textQuaternary)
                 .padding(4)
                 .allowsHitTesting(false)
         }
@@ -98,7 +98,7 @@ struct CoreBarsView: View {
         VStack(spacing: 1) {
             Text("\(index + 1)")
                 .font(.system(size: 7, weight: .medium))
-                .foregroundStyle(dimmed ? Color.primary.opacity(0.2) : Color.primary.opacity(0.45))
+                .foregroundStyle(dimmed ? TahoeTokens.Color.textMuted : TahoeTokens.Color.textSecondary)
         }
     }
 
@@ -142,7 +142,7 @@ struct CoreBarsView: View {
         VStack(spacing: 3) {
             Text(label)
                 .font(.system(size: 8, weight: .semibold))
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(TahoeTokens.Color.textQuaternary)
                 .textCase(.uppercase)
                 .kerning(0.6)
             Text(value)
@@ -182,7 +182,7 @@ struct CoreBarsView: View {
                 Circle().fill(k.tint).frame(width: 5, height: 5)
                 Text("Core \(index + 1)")
                     .font(.system(size: 8, weight: .semibold))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
                 Spacer()
                 Text(String(format: "%.0f%%", current))
                     .font(.system(size: 8, weight: .medium, design: .monospaced))
@@ -244,20 +244,20 @@ struct CoreBarsView: View {
                 Spacer()
                 Text(String(format: "%.0f%%", load))
                     .font(.system(size: 10, weight: .medium, design: .monospaced))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
             }
 
             Divider().opacity(0.35)
 
             Text("Per-core type is currently unlabeled until cluster mapping is verified.")
                 .font(.system(size: 9, weight: .regular))
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(TahoeTokens.Color.textTertiary)
                 .italic()
 
             if processes.isEmpty {
                 Text("No process data")
                     .font(TahoeTokens.FontStyle.body)
-                    .foregroundStyle(.quaternary)
+                    .foregroundStyle(TahoeTokens.Color.textQuaternary)
             } else {
                 let filtered = processesFor(coreKind: k)
                 VStack(spacing: 4) {

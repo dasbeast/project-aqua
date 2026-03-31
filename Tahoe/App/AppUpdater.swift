@@ -126,11 +126,11 @@ struct UpdaterSettingsView: View {
             if let configurationError {
                 Text(configurationError)
                     .font(TahoeTokens.FontStyle.body)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
 
                 Text("Sparkle is wired up, but it will stay disabled until you replace the feed URL and public key placeholders.")
                     .font(TahoeTokens.FontStyle.body)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(TahoeTokens.Color.textTertiary)
             }
         }
     }

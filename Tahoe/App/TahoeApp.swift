@@ -7,8 +7,14 @@ struct TahoeApp: App {
     @AppStorage("compactMode") private var compactMode = false
     @AppStorage("alwaysOnTop") private var alwaysOnTop = true
     @AppStorage("uiTheme")     private var uiThemeRaw  = AppTheme.tahoe.rawValue
+    @AppStorage("followSystemAppearance") private var followSystemAppearance = true
+    @AppStorage("manualColorMode")        private var manualColorModeRaw = AppColorMode.dark.rawValue
 
     private var theme: AppTheme { AppTheme(rawValue: uiThemeRaw) ?? .tahoe }
+    private var preferredColorScheme: ColorScheme? {
+        guard !followSystemAppearance else { return nil }
+        return AppColorMode(rawValue: manualColorModeRaw)?.colorScheme ?? .dark
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -16,6 +22,7 @@ struct TahoeApp: App {
                 .environmentObject(monitor)
                 .environmentObject(updater)
                 .environment(\.appTheme, theme)
+                .preferredColorScheme(preferredColorScheme)
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.automatic)
@@ -61,6 +68,7 @@ struct TahoeApp: App {
             MenuBarView()
                 .environmentObject(monitor)
                 .environmentObject(updater)
+                .preferredColorScheme(preferredColorScheme)
         } label: {
             MenuBarLabel(
                 cpu:    monitor.cpu.total,

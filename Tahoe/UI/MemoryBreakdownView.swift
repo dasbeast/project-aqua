@@ -31,8 +31,12 @@ struct MemoryBreakdownView: View {
                 description: "Instead of writing idle pages to your SSD, macOS squeezes them smaller and keeps them in RAM. Faster than swap, slower than active memory."),
         Segment(id: "Inactive",
                 value:       state.inactiveGB,
-                tint:        Color.primary.opacity(0.25),
+                tint:        TahoeTokens.Color.textSecondary,
                 description: "Memory from apps you used recently but aren't using right now. macOS keeps it handy in case you come back — and it's instantly reclaimed the moment something else needs RAM."),
+        Segment(id: "Free",
+                value:       freeGB,
+                tint:        TahoeTokens.Color.textQuaternary,
+                description: "Completely unused RAM that is available immediately. This memory is not currently holding app state or cached data."),
     ] }
 
     private var freeGB: Double {
@@ -78,12 +82,8 @@ struct MemoryBreakdownView: View {
                         .scaleEffect(y: isSelected ? 1.25 : 1.0, anchor: .center)
                         .animation(.spring(response: 0.32, dampingFraction: 0.7), value: selectedSegment)
                         .onTapGesture { toggleSegment(seg.id) }
-                        .tooltip(seg.description)
+                        .tooltip(hoverLabel(for: seg), delay: 0.2)
                 }
-                let freeFrac = freeGB / max(state.totalGB, 1)
-                RoundedRectangle(cornerRadius: 3, style: .continuous)
-                    .fill(Color.primary.opacity(selectedSegment != nil ? 0.03 : 0.06))
-                    .frame(width: max(geo.size.width * freeFrac, 2))
             }
         }
         .frame(height: 8)
@@ -104,7 +104,7 @@ struct MemoryBreakdownView: View {
                 let dimmed     = selectedSegment != nil && !isSelected
                 legendRow(seg: seg, selected: isSelected, dimmed: dimmed)
                     .onTapGesture { toggleSegment(seg.id) }
-                    .tooltip(seg.description)
+                    .tooltip(tooltipText(for: seg), delay: 0.35)
             }
         }
     }
@@ -117,12 +117,12 @@ struct MemoryBreakdownView: View {
                 .frame(width: 6, height: 6)
             Text(seg.id)
                 .font(TahoeTokens.FontStyle.body)
-                .foregroundStyle(dimmed ? Color.primary.opacity(0.25) : Color.secondary)
+                .foregroundStyle(dimmed ? TahoeTokens.Color.textMuted : TahoeTokens.Color.textSecondary)
                 .lineLimit(1)
             Spacer(minLength: 0)
             Text(String(format: "%.2f", seg.value))
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
-                .foregroundStyle(dimmed ? Color.primary.opacity(0.2) : (selected ? seg.tint : Color.primary))
+                .foregroundStyle(dimmed ? TahoeTokens.Color.textMuted : (selected ? seg.tint : TahoeTokens.Color.textPrimary))
         }
         .padding(.horizontal, 5)
         .padding(.vertical, 3)
@@ -148,7 +148,7 @@ struct MemoryBreakdownView: View {
                 .foregroundStyle(TahoeTokens.Color.danger.opacity(0.75))
             Text("Swap")
                 .font(TahoeTokens.FontStyle.body)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(TahoeTokens.Color.textSecondary)
             Spacer()
             Text(String(format: "%.2f GB in use", state.swapUsedGB))
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
@@ -185,21 +185,21 @@ struct MemoryBreakdownView: View {
                 Spacer()
                 Text(String(format: "%.2f GB", seg.value))
                     .font(.system(size: 10, weight: .medium, design: .monospaced))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
             }
 
             Text(seg.description)
                 .font(.system(size: 9))
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(TahoeTokens.Color.textTertiary)
                 .italic()
                 .fixedSize(horizontal: false, vertical: true)
 
             Divider().opacity(0.3)
 
             if procs.isEmpty {
-                Text("No process data")
+                Text(emptyStateMessage(for: seg))
                     .font(TahoeTokens.FontStyle.body)
-                    .foregroundStyle(.quaternary)
+                    .foregroundStyle(TahoeTokens.Color.textQuaternary)
             } else {
                 HStack {
                     Text("Process")
@@ -208,7 +208,7 @@ struct MemoryBreakdownView: View {
                         .frame(width: 54, alignment: .trailing)
                 }
                 .font(TahoeTokens.FontStyle.label)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(TahoeTokens.Color.textTertiary)
                 .textCase(.uppercase)
                 .kerning(0.8)
 
@@ -236,7 +236,7 @@ struct MemoryBreakdownView: View {
         HStack(spacing: 0) {
             Text("\(rank)")
                 .font(.system(size: 8, weight: .medium, design: .monospaced))
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(TahoeTokens.Color.textQuaternary)
                 .frame(width: 16, alignment: .leading)
             Text(p.name.isEmpty ? "—" : p.name)
                 .font(TahoeTokens.FontStyle.body)
@@ -245,7 +245,7 @@ struct MemoryBreakdownView: View {
             Spacer()
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    Capsule().fill(Color.primary.opacity(0.05))
+                    Capsule().fill(TahoeTokens.Color.textPrimary.opacity(0.08))
                     Capsule()
                         .fill(tint.opacity(0.5))
                         .frame(width: geo.size.width * min(p.memoryGB / max(maxMem, 0.001), 1))
@@ -270,6 +270,8 @@ struct MemoryBreakdownView: View {
     private func processesFor(_ seg: Segment) -> [AppProcess] {
         let byMem = processes.sorted { $0.memoryGB > $1.memoryGB }
         switch seg.id {
+        case "Free":
+            return []
         case "Wired":
             // Wired is kernel-managed. Surface known system processes first,
             // then fill with highest-memory apps.
@@ -294,5 +296,20 @@ struct MemoryBreakdownView: View {
     private func memLabel(_ gb: Double) -> String {
         gb >= 1.0 ? String(format: "%.1f G", gb)
                   : String(format: "%.0f M", gb * 1024)
+    }
+
+    private func tooltipText(for seg: Segment) -> String {
+        "\(seg.id): \(String(format: "%.2f GB", seg.value))\n\(seg.description)"
+    }
+
+    private func hoverLabel(for seg: Segment) -> String {
+        "\(seg.id): \(String(format: "%.2f GB", seg.value))"
+    }
+
+    private func emptyStateMessage(for seg: Segment) -> String {
+        if seg.id == "Free" {
+            return "Free memory is unused RAM, so it isn't attributed to any process."
+        }
+        return "No process data"
     }
 }

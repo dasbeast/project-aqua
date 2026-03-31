@@ -94,12 +94,12 @@ private struct StatsRow: View {
         VStack(spacing: 2) {
             Text(label)
                 .font(TahoeTokens.FontStyle.label)
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(TahoeTokens.Color.textQuaternary)
                 .textCase(.uppercase)
                 .kerning(0.8)
             Text(String(format: "%.1f\(unit)", value))
                 .font(.system(size: 11, weight: .medium, design: .monospaced))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(TahoeTokens.Color.textSecondary)
         }
     }
 }
@@ -223,7 +223,7 @@ struct DetailView: View {
     private var cpuBreakdown: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Core Load")
-                .font(TahoeTokens.FontStyle.label).foregroundStyle(.tertiary)
+                .font(TahoeTokens.FontStyle.label).foregroundStyle(TahoeTokens.Color.textTertiary)
                 .textCase(.uppercase).kerning(0.8)
             CoreBarsView(cores: monitor.cpu.cores, coreHistory: monitor.cpu.coreHistory, processes: monitor.processes)
             if monitor.temperature.cpuDie > 0 {
@@ -240,7 +240,7 @@ struct DetailView: View {
         VStack(spacing: 5) {
             detailRow("Wired",      value: String(format: "%.2f GB", monitor.memory.wiredGB),      tint: TahoeTokens.Color.cpuTint)
             detailRow("Active",     value: String(format: "%.2f GB", monitor.memory.activeGB),     tint: TahoeTokens.Color.memTint)
-            detailRow("Inactive",   value: String(format: "%.2f GB", monitor.memory.inactiveGB),   tint: .secondary)
+            detailRow("Inactive",   value: String(format: "%.2f GB", monitor.memory.inactiveGB),   tint: TahoeTokens.Color.textSecondary)
             detailRow("Compressed", value: String(format: "%.2f GB", monitor.memory.compressedGB), tint: TahoeTokens.Color.pwrTint)
         }
     }
@@ -272,11 +272,11 @@ struct DetailView: View {
     private func detailRow(_ label: String, value: String, tint: Color) -> some View {
         HStack {
             Circle().fill(tint).frame(width: 5, height: 5)
-            Text(label).font(TahoeTokens.FontStyle.body).foregroundStyle(.secondary)
+            Text(label).font(TahoeTokens.FontStyle.body).foregroundStyle(TahoeTokens.Color.textSecondary)
             Spacer()
             Text(value)
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
-                .foregroundStyle(.primary)
+                .foregroundStyle(TahoeTokens.Color.textPrimary)
         }
     }
 }

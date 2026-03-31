@@ -25,18 +25,18 @@ struct HeroCardView: View {
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text(value)
                     .font(theme.heroValueFont)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(TahoeTokens.Color.textPrimary)
                     .contentTransition(.numericText())
                     .monospacedDigit()
                 Text(unit)
                     .font(TahoeTokens.FontStyle.heroUnit)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
                     .baselineOffset(12)
             }
 
             Text(subtitle)
                 .font(TahoeTokens.FontStyle.body)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(TahoeTokens.Color.textTertiary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
 
@@ -131,9 +131,9 @@ struct HeroCardView: View {
                 )
         }
         .shadow(
-            color: tint.opacity(isHovered && onTap != nil ? 0.18 : 0.10),
-            radius: 10, y: 4
+            color: tint.opacity(isHovered && onTap != nil ? 0.14 : 0.08),
+            radius: 8, y: 1
         )
-        .shadow(color: .black.opacity(0.20), radius: 6, y: 3)
+        .shadow(color: .black.opacity(0.10), radius: 5, y: 1)
     }
 }
