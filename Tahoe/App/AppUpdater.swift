@@ -5,7 +5,6 @@ import SwiftUI
 
 @MainActor
 final class AppUpdater: ObservableObject {
-    private static let feedURLPlaceholder = "https://baileykiehl.com/Aqua/appcast.xml"
     private static let publicKeyPlaceholder = "REPLACE_WITH_AQUA_SPARKLE_PUBLIC_ED25519_KEY"
 
     let updaterController: SPUStandardUpdaterController?
@@ -37,7 +36,6 @@ final class AppUpdater: ObservableObject {
         guard
             let value,
             !value.isEmpty,
-            value != feedURLPlaceholder,
             let url = URL(string: value),
             let scheme = url.scheme?.lowercased(),
             scheme == "https"
