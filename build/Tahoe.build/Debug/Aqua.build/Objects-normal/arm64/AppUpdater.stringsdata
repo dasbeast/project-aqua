@@ -1,0 +1,48 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/App/AppUpdater.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Check for Updates…",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sparkle is wired up, but it will stay disabled until you replace the feed URL and public key placeholders.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "Automatically check for updates",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "Automatically download updates",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Check for Updates…",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 122
+        }
+      }
+    ]
+  },
+  "version": 1
+}

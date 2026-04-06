@@ -1,0 +1,23 @@
+{
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/AlertMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/AlertMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/AlertMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/AlertMonitor.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/AlertMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/AlertMonitor.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/SMCMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SMCMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SMCMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SMCMonitor.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SMCMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SMCMonitor.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/NetworkDiskView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/NetworkDiskView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/NetworkDiskView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/NetworkDiskView.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/NetworkDiskView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/NetworkDiskView.swiftdeps"
+  }
+}

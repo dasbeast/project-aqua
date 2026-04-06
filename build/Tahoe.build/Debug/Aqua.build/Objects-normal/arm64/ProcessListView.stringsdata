@@ -1,0 +1,40 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/ProcessListView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Name",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "CPU",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 16
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mem",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 30
+        }
+      }
+    ]
+  },
+  "version": 1
+}

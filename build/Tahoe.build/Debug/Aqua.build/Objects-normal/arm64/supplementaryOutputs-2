@@ -1,0 +1,23 @@
+{
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/GPUMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/MemoryMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/PowerMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.swiftdeps"
+  }
+}

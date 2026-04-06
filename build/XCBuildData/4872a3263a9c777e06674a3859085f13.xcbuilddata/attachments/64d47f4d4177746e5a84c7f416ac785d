@@ -1,0 +1,299 @@
+{
+  "" : {
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/Aqua-primary.dia",
+    "emit-module-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/Aqua-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/Aqua-primary-emit-module.dia",
+    "pch" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/Aqua-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/Aqua-primary.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/App/AppUpdater.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppUpdater~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/App/TahoeApp.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeApp~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/AlertMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AlertMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/CPUMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CPUMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/DiskMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DiskMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/GPUMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/MemoryMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/NetworkMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/PowerMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/PowerMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/ProcessMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/SMCMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SMCMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/SystemInfo.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemInfo~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Core/SystemMonitor.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SystemMonitor~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Design/AppTheme.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/AppTheme~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Design/TahoeTokens.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTokens~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Design/TahoeTooltip.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/TahoeTooltip~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/CoreBarsView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/CoreBarsView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/DashboardView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DashboardView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/DetailView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/DetailView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/GPUBarsView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GPUBarsView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/HeroCardView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/HeroCardView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/MemoryBreakdownView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MemoryBreakdownView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/MenuBarView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/MenuBarView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/NetworkDiskView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/NetworkDiskView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/ProcessListView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/ProcessListView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/SettingsView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/SparklineView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/SparklineView~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/WindowChrome.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/WindowChrome~partial.swiftmodule"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

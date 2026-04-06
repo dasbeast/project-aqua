@@ -1,0 +1,23 @@
+{
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/MenuBarView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/MenuBarView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/MenuBarView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/MenuBarView.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/MenuBarView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/MenuBarView.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/SparklineView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SparklineView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SparklineView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SparklineView.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SparklineView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/SparklineView.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/WindowChrome.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/WindowChrome.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/WindowChrome.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/WindowChrome.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/WindowChrome.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/WindowChrome.swiftdeps"
+  }
+}

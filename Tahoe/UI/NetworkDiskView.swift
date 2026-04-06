@@ -8,11 +8,12 @@ struct NetworkDiskView: View {
     var body: some View {
         HStack(spacing: 24) {
             metricGroup(
-                title:   "Network",
+                title:    "Network",
                 rows: [
-                    MetricRow(label: "↓ Down", value: bwLabel(network.downMBps), tint: TahoeTokens.Color.netTint, history: network.history),
+                    MetricRow(label: "↓ Down", value: bwLabel(network.downMBps), tint: TahoeTokens.Color.netTint,              history: network.history),
                     MetricRow(label: "↑ Up",   value: bwLabel(network.upMBps),   tint: TahoeTokens.Color.netTint.opacity(0.65), history: []),
-                ]
+                ],
+                maxValue: max(network.history.max() ?? 10, 10)
             )
 
             Divider()
@@ -20,11 +21,12 @@ struct NetworkDiskView: View {
                 .opacity(0.35)
 
             metricGroup(
-                title:   "Disk I/O",
+                title:    "Disk I/O",
                 rows: [
-                    MetricRow(label: "Read",  value: bwLabel(disk.readMBps),  tint: TahoeTokens.Color.diskTint, history: disk.history),
+                    MetricRow(label: "Read",  value: bwLabel(disk.readMBps),  tint: TahoeTokens.Color.diskTint,              history: disk.history),
                     MetricRow(label: "Write", value: bwLabel(disk.writeMBps), tint: TahoeTokens.Color.diskTint.opacity(0.65), history: []),
-                ]
+                ],
+                maxValue: max(disk.history.max() ?? 100, 100)
             )
         }
     }
@@ -39,11 +41,16 @@ struct NetworkDiskView: View {
     }
 
     @ViewBuilder
-    private func metricGroup(title: String, rows: [MetricRow]) -> some View {
+    private func metricGroup(title: String, rows: [MetricRow], maxValue: Double) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Mini sparkline for the primary row
+            // Mini sparkline for the primary row — scaled to the rolling max
             if let primary = rows.first, !primary.history.isEmpty {
-                SparklineView(history: primary.history, tint: primary.tint, height: 72)
+                SparklineView(
+                    history:  primary.history,
+                    tint:     primary.tint,
+                    height:   72,
+                    maxValue: maxValue
+                )
             }
 
             VStack(spacing: 5) {
@@ -68,8 +75,9 @@ struct NetworkDiskView: View {
     }
 
     private func bwLabel(_ mbps: Double) -> String {
-        mbps >= 100  ? String(format: "%.0f MB/s",  mbps)
-      : mbps >= 1    ? String(format: "%.1f MB/s",  mbps)
+        mbps >= 1000 ? String(format: "%.1f GB/s", mbps / 1000)
+      : mbps >= 100  ? String(format: "%.0f MB/s", mbps)
+      : mbps >= 1    ? String(format: "%.1f MB/s", mbps)
                      : String(format: "%.0f KB/s",  mbps * 1024)
     }
 }

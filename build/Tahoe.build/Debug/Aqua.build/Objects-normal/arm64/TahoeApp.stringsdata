@@ -1,0 +1,56 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/App/TahoeApp.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Check for Updates…",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "Copy Snapshot",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expand View",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Compact View",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Disable Float",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 60
+        }
+      },
+      {
+        "comment": "",
+        "key": "Float Above Windows",
+        "location": {
+          "startingColumn": 56,
+          "startingLine": 60
+        }
+      }
+    ]
+  },
+  "version": 1
+}

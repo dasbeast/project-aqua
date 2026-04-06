@@ -1,0 +1,16 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/ThermalView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No thermal sensors available",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 63
+        }
+      }
+    ]
+  },
+  "version": 1
+}

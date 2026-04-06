@@ -3,9 +3,10 @@ import Foundation
 
 struct DashboardView: View {
     @EnvironmentObject var monitor: SystemMonitor
-    @AppStorage("compactMode")  private var compactMode  = false
-    @AppStorage("alwaysOnTop")  private var alwaysOnTop  = true
-    @AppStorage("uiTheme")      private var uiThemeRaw   = AppTheme.tahoe.rawValue
+    @AppStorage("compactMode")    private var compactMode    = false
+    @AppStorage("alwaysOnTop")    private var alwaysOnTop    = true
+    @AppStorage("uiTheme")        private var uiThemeRaw     = AppTheme.tahoe.rawValue
+    @AppStorage("useFahrenheit")  private var useFahrenheit  = false
     @State private var showSettings  = false
     @State private var detailMetric: DetailMetric? = nil
 
@@ -78,7 +79,8 @@ struct DashboardView: View {
                                     CoreBarsView(
                                         cores:       monitor.cpu.cores,
                                         coreHistory: monitor.cpu.coreHistory,
-                                        processes:   monitor.processes
+                                        processes:   monitor.processes,
+                                        cpuTemp:     monitor.temperature.cpuDie
                                     )
                                 }
                                 panelCard(label: "Memory", tag: "\(Int(monitor.memory.totalGB)) GB unified") {
@@ -90,7 +92,11 @@ struct DashboardView: View {
                                 GPUBarsView(gpu: monitor.gpu)
                             }
 
-                            panelCard(label: "Network & Disk", tag: tempTag) {
+                            panelCard(label: "Thermals", tag: thermalsTag) {
+                                ThermalView(temp: monitor.temperature)
+                            }
+
+                            panelCard(label: "Network & Disk", tag: "I/O") {
                                 NetworkDiskView(network: monitor.network, disk: monitor.disk)
                             }
 
@@ -114,12 +120,12 @@ struct DashboardView: View {
 
     private var toolbar: some View {
         HStack {
-            if monitor.temperature.cpuDie > 0 {
+            if let temp = hottestTemperature {
                 HStack(spacing: 4) {
                     Image(systemName: "thermometer.medium")
                         .font(.system(size: 10))
                         .foregroundStyle(tempColor)
-                    Text(String(format: "%.0f°C", monitor.temperature.cpuDie))
+                    Text(temp.tempFormatted(fahrenheit: useFahrenheit))
                         .font(.system(size: 10, weight: .medium, design: .monospaced))
                         .foregroundStyle(tempColor)
                         .contentTransition(.numericText())
@@ -128,8 +134,8 @@ struct DashboardView: View {
                 .padding(.vertical, 3)
                 .background(tempColor.opacity(0.1))
                 .clipShape(Capsule())
-                .accessibilityLabel("CPU temperature")
-                .accessibilityValue(String(format: "%.0f degrees Celsius", monitor.temperature.cpuDie))
+                .accessibilityLabel("Temperature")
+                .accessibilityValue(String(format: "%.0f degrees Celsius", temp))
             }
             Spacer()
             Button {
@@ -202,6 +208,7 @@ struct DashboardView: View {
     private func panelCard<Content: View>(
         label: String,
         tag: String,
+        onTap: (() -> Void)? = nil,
         @ViewBuilder content: () -> Content
     ) -> some View {
         VStack(spacing: 0) {
@@ -244,6 +251,10 @@ struct DashboardView: View {
             }
             .shadow(color: .black.opacity(0.10), radius: 5, y: 1)
         }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onTap?()
+        }
     }
 
     // MARK: - Computed labels
@@ -268,17 +279,32 @@ struct DashboardView: View {
         return "avg \(Int(coreAvg))%"
     }
     private var gpuCoresTag: String {
+        let count = monitor.gpu.gpuCount
+        if count > 1 { return "\(count)× GPU · \(Int(monitor.gpu.utilization))%" }
         let n = SystemInfo.gpuCoreCount
         return n > 0 ? "\(n)-core · \(Int(monitor.gpu.utilization))%" : "\(Int(monitor.gpu.utilization))%"
     }
-    private var tempTag: String {
-        monitor.temperature.cpuDie > 0
-            ? String(format: "%.0f°C", monitor.temperature.cpuDie) : "I/O"
+    private var thermalsTag: String {
+        if let temp = hottestTemperature {
+            return String(format: "%.0f°C", temp)
+        }
+        return "sensors"
     }
     private var tempColor: Color {
-        let t = monitor.temperature.cpuDie
+        let t = hottestTemperature ?? 0
         if t > 90 { return TahoeTokens.Color.danger }
         if t > 75 { return TahoeTokens.Color.warning }
         return TahoeTokens.Color.tempTint
+    }
+
+    private var hottestTemperature: Double? {
+        let values = [
+            monitor.temperature.cpuDie,
+            monitor.temperature.gpuDie,
+            monitor.temperature.gpuDie2,
+            monitor.temperature.memoryTemp,
+            monitor.temperature.ambientTemp
+        ].filter { $0 > 0 }
+        return values.max()
     }
 }

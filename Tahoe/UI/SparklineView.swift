@@ -4,6 +4,9 @@ struct SparklineView: View {
     let history:            [Double]
     let tint:               Color
     var height:             CGFloat = 48
+    /// The value that maps to the top of the chart. Defaults to 100 (for 0–100 % metrics).
+    /// Pass the rolling max for MB/s metrics so the chart scales correctly.
+    var maxValue:           Double  = 100
     var accessibilityLabel: String = "Sparkline"
     var accessibilityValue: String = ""
     @Environment(\.accessibilityReduceMotion) var reduceMotion
@@ -23,9 +26,10 @@ struct SparklineView: View {
                 let offset   = maxCount - history.count  // places data at right edge
 
                 var path = Path()
+                let scale = maxValue > 0 ? maxValue : 100
                 for (i, v) in history.enumerated() {
                     let x = Double(i + offset) * step
-                    let y = h - (v / 100.0) * h * 0.82 - h * 0.09
+                    let y = h - (v / scale) * h * 0.82 - h * 0.09
                     i == 0 ? path.move(to: CGPoint(x: x, y: y))
                            : path.addLine(to: CGPoint(x: x, y: y))
                 }
@@ -39,7 +43,7 @@ struct SparklineView: View {
 
                 if let last = history.last {
                     let lx  = w
-                    let ly  = h - (last / 100.0) * h * 0.82 - h * 0.09
+                    let ly  = h - (last / scale) * h * 0.82 - h * 0.09
                     ctx.fill(
                         Path(ellipseIn: CGRect(x: lx - 2.5, y: ly - 2.5, width: 5, height: 5)),
                         with: .color(tint.opacity(0.85))

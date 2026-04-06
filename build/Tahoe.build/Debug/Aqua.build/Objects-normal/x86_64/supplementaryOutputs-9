@@ -1,0 +1,23 @@
+{
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/Design/TahoeTokens.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/TahoeTokens.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/TahoeTokens.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/TahoeTokens.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/TahoeTokens.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/TahoeTokens.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/CoreBarsView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/CoreBarsView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/CoreBarsView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/CoreBarsView.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/CoreBarsView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/CoreBarsView.swiftdeps"
+  },
+  "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/DashboardView.swift" : {
+    "const-values" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/DashboardView.swiftconstvalues",
+    "dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/DashboardView.d",
+    "diagnostics" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/DashboardView.dia",
+    "object" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/DashboardView.o",
+    "swift-dependencies" : "/Users/baileykiehl/Desktop/Project Aqua/build/Tahoe.build/Debug/Aqua.build/Objects-normal/x86_64/DashboardView.swiftdeps"
+  }
+}

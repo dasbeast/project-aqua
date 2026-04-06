@@ -20,10 +20,12 @@ struct CoreBarsView: View {
     let cores:       [Double]       // 0–100 per logical core
     let coreHistory: [[Double]]     // rolling history per core
     let processes:   [AppProcess]
+    var cpuTemp:     Double = 0     // °C — CPU die temp for display in expanded view
 
     @State private var selectedCore: Int?  = nil
     @State private var expanded:     Bool  = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @AppStorage("useFahrenheit") private var useFahrenheit = false
 
     private func kind(for index: Int) -> CoreKind {
         .unknown
@@ -113,7 +115,7 @@ struct CoreBarsView: View {
         .transition(.opacity.combined(with: .move(edge: .top)))
     }
 
-    // Summary: P avg, E avg, busiest core
+    // Summary: core avg · die temp (when available) · busiest core
     private var summaryStatsRow: some View {
         HStack(spacing: 0) {
             summaryCell(
@@ -122,11 +124,19 @@ struct CoreBarsView: View {
                 tint:  TahoeTokens.Color.cpuTint
             )
             Spacer()
-            summaryCell(
-                label: "Core Count",
-                value: "\(cores.count)",
-                tint:  TahoeTokens.Color.memTint
-            )
+            if cpuTemp > 0 {
+                summaryCell(
+                    label: "Die Temp",
+                    value: cpuTemp.tempFormatted(fahrenheit: useFahrenheit),
+                    tint:  ThermalChip.thermalColor(temp: cpuTemp, danger: 90)
+                )
+            } else {
+                summaryCell(
+                    label: "Cores",
+                    value: "\(cores.count)",
+                    tint:  TahoeTokens.Color.memTint
+                )
+            }
             Spacer()
             summaryCell(
                 label: "Busiest",

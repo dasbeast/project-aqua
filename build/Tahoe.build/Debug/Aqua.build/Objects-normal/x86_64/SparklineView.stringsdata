@@ -1,0 +1,24 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/SparklineView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No data",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current %@. Min %@, Max %@",
+        "location": {
+          "startingColumn": 15,
+          "startingLine": 100
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -78,6 +78,9 @@ enum SystemInfo {
 
     static var gpuSubtitle: String {
         let n = gpuCoreCount
-        return n > 0 ? "\(n)-core · unified" : "Integrated · unified"
+        if n > 0 { return "\(n)-core · unified" }
+        // Intel Mac: IOGPU not present; gpuCount comes from GPUMonitor at runtime.
+        // Static fallback just indicates discrete (not integrated) GPU.
+        return "Discrete GPU"
     }
 }

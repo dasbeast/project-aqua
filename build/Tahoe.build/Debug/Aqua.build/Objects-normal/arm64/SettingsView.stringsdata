@@ -1,0 +1,48 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/SettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "Copy Snapshot to Clipboard",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 157
+        }
+      },
+      {
+        "comment": "",
+        "key": "Aqua · v0.0.9 · Project Aqua",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 167
+        }
+      }
+    ]
+  },
+  "version": 1
+}

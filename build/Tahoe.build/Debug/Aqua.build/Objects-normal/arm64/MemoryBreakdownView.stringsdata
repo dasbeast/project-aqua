@@ -1,0 +1,40 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/MemoryBreakdownView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Swap",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "Process",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 205
+        }
+      },
+      {
+        "comment": "",
+        "key": "Memory",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 207
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 237
+        }
+      }
+    ]
+  },
+  "version": 1
+}

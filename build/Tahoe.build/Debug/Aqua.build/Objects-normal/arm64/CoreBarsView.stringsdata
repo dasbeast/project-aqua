@@ -1,0 +1,56 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/CoreBarsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Core %lld %@",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "Core %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 183
+        }
+      },
+      {
+        "comment": "",
+        "key": "Per-core type is currently unlabeled until cluster mapping is verified.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 252
+        }
+      },
+      {
+        "comment": "",
+        "key": "No process data",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 258
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 288
+        }
+      }
+    ]
+  },
+  "version": 1
+}

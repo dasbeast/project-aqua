@@ -15,6 +15,7 @@ struct SettingsView: View {
     @AppStorage("followSystemAppearance") private var followSystemAppearance = true
     @AppStorage("manualColorMode")        private var manualColorModeRaw = AppColorMode.dark.rawValue
     @AppStorage("pollInterval")       private var pollInterval   = 1.0
+    @AppStorage("useFahrenheit")      private var useFahrenheit  = false
 
     @AppStorage("alertCPUEnabled")    private var alertCPU       = false
     @AppStorage("alertCPUThreshold")  private var cpuThreshold   = TahoeTokens.Alert.cpuDefault
@@ -123,6 +124,14 @@ struct SettingsView: View {
 
                 divider
 
+                sectionHeader("Units")
+
+                Toggle(isOn: $useFahrenheit) {
+                    settingLabel("Use Fahrenheit", icon: "thermometer.medium")
+                }
+
+                divider
+
                 sectionHeader("Alerts")
 
                 alertRow(label: "CPU",      icon: "cpu",
@@ -164,7 +173,7 @@ struct SettingsView: View {
                 divider
 
                 HStack {
-                    Text("Aqua · v0.0.9 · Project Aqua")
+                    Text("Aqua · v0.1.0 · Project Aqua")
                         .font(TahoeTokens.FontStyle.body).foregroundStyle(TahoeTokens.Color.textQuaternary)
                     Spacer()
                 }

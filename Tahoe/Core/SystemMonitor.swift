@@ -41,6 +41,7 @@ final class SystemMonitor: ObservableObject {
         _ = gpuMon.sample()
         _ = netMon.sample()
         _ = diskMon.sample()
+        _ = smcMon.sample()
         start()
         observeThermal()
         observeInterval()
@@ -61,7 +62,10 @@ final class SystemMonitor: ObservableObject {
         Power    \(String(format: "%.1f", power.totalWatts)) W  (CPU \(String(format: "%.1f", power.cpuWatts)) · GPU \(String(format: "%.1f", power.gpuWatts)) · ANE \(String(format: "%.1f", power.aneWatts)))
         Disk     R \(String(format: "%.1f", disk.readMBps)) MB/s · W \(String(format: "%.1f", disk.writeMBps)) MB/s
         Network  ↓\(String(format: "%.2f", network.downMBps)) · ↑\(String(format: "%.2f", network.upMBps)) MB/s
-        CPU Temp \(temperature.cpuDie > 0 ? String(format: "%.0f°C", temperature.cpuDie) : "n/a")
+        CPU Temp \(temperature.cpuDie     > 0 ? String(format: "%.0f°C", temperature.cpuDie)     : "n/a")
+        GPU Temp \(temperature.gpuDie     > 0 ? String(format: "%.0f°C", temperature.gpuDie)     : "n/a")\(temperature.gpuDie2 > 0 ? String(format: " / %.0f°C", temperature.gpuDie2) : "")
+        Mem Temp \(temperature.memoryTemp > 0 ? String(format: "%.0f°C", temperature.memoryTemp) : "n/a")
+        Ambient  \(temperature.ambientTemp > 0 ? String(format: "%.0f°C", temperature.ambientTemp) : "n/a")
         ──────────────────────────────────────────
         """
     }
@@ -106,7 +110,12 @@ final class SystemMonitor: ObservableObject {
             p.history     = Self.roll(self.power.history,       appending: p.totalWatts)
             n.history     = Self.roll(self.network.history,     appending: n.downMBps)
             d.history     = Self.roll(self.disk.history,        appending: d.readMBps + d.writeMBps)
-            temp.history  = Self.roll(self.temperature.history, appending: temp.cpuDie)
+            temp.history  = Self.roll(self.temperature.history, appending: temp.hottest)
+            // Per-sensor histories — only append when the sensor is active (> 0)
+            temp.cpuHistory     = temp.cpuDie     > 0 ? Self.roll(self.temperature.cpuHistory,     appending: temp.cpuDie)     : self.temperature.cpuHistory
+            temp.gpuHistory     = temp.gpuDie     > 0 ? Self.roll(self.temperature.gpuHistory,     appending: temp.gpuDie)     : self.temperature.gpuHistory
+            temp.memoryHistory  = temp.memoryTemp > 0 ? Self.roll(self.temperature.memoryHistory,  appending: temp.memoryTemp) : self.temperature.memoryHistory
+            temp.ambientHistory = temp.ambientTemp > 0 ? Self.roll(self.temperature.ambientHistory, appending: temp.ambientTemp) : self.temperature.ambientHistory
 
             withAnimation(.easeOut(duration: 0.35)) {
                 self.cpu         = c
@@ -168,5 +177,11 @@ final class SystemMonitor: ObservableObject {
             result[i] = h
         }
         return result
+    }
+}
+
+private extension TemperatureState {
+    var hottest: Double {
+        [cpuDie, gpuDie, gpuDie2, memoryTemp, ambientTemp].max() ?? 0
     }
 }

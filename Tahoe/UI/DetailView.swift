@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Detail metric enum
 
 enum DetailMetric: String, CaseIterable {
-    case cpu, gpu, memory, power, disk, network
+    case cpu, gpu, memory, power, disk, network, thermal
 }
 
 // MARK: - Tall history chart (Canvas-based)
@@ -109,6 +109,7 @@ private struct StatsRow: View {
 struct DetailView: View {
     let metric: DetailMetric
     @EnvironmentObject var monitor: SystemMonitor
+    @AppStorage("useFahrenheit") private var useFahrenheit = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -153,6 +154,7 @@ struct DetailView: View {
         case .power:   return "Power"
         case .disk:    return "Disk I/O"
         case .network: return "Network"
+        case .thermal: return "Thermals"
         }
     }
 
@@ -164,6 +166,7 @@ struct DetailView: View {
         case .power:   return TahoeTokens.Color.pwrTint
         case .disk:    return TahoeTokens.Color.diskTint
         case .network: return TahoeTokens.Color.netTint
+        case .thermal: return TahoeTokens.Color.tempTint
         }
     }
 
@@ -175,6 +178,7 @@ struct DetailView: View {
         case .power:   return monitor.power.history
         case .disk:    return monitor.disk.history
         case .network: return monitor.network.history
+        case .thermal: return monitor.temperature.history
         }
     }
 
@@ -186,6 +190,7 @@ struct DetailView: View {
         case .power:   return max(monitor.power.history.max() ?? 50, 50)
         case .disk:    return max(monitor.disk.history.max() ?? 100, 100)
         case .network: return max(monitor.network.history.max() ?? 10, 10)
+        case .thermal: return max(monitor.temperature.history.max() ?? 100, 100)
         }
     }
     private var unitStr: String {
@@ -193,6 +198,7 @@ struct DetailView: View {
         case .cpu, .gpu, .memory: return "%"
         case .power:   return "W"
         case .disk, .network: return " MB/s"
+        case .thermal: return "°C"
         }
     }
     private var currentValue: String {
@@ -203,6 +209,8 @@ struct DetailView: View {
         case .power:   return String(format: "%.1f W", monitor.power.totalWatts)
         case .disk:    return String(format: "%.1f MB/s", monitor.disk.readMBps + monitor.disk.writeMBps)
         case .network: return String(format: "↓%.1f ↑%.1f", monitor.network.downMBps, monitor.network.upMBps)
+        case .thermal:
+            return thermalHeadline
         }
     }
 
@@ -217,6 +225,7 @@ struct DetailView: View {
         case .power:   pwrBreakdown
         case .disk:    diskBreakdown
         case .network: netBreakdown
+        case .thermal: thermalBreakdown
         }
     }
 
@@ -225,9 +234,9 @@ struct DetailView: View {
             Text("Core Load")
                 .font(TahoeTokens.FontStyle.label).foregroundStyle(TahoeTokens.Color.textTertiary)
                 .textCase(.uppercase).kerning(0.8)
-            CoreBarsView(cores: monitor.cpu.cores, coreHistory: monitor.cpu.coreHistory, processes: monitor.processes)
+            CoreBarsView(cores: monitor.cpu.cores, coreHistory: monitor.cpu.coreHistory, processes: monitor.processes, cpuTemp: monitor.temperature.cpuDie)
             if monitor.temperature.cpuDie > 0 {
-                detailRow("Temperature", value: String(format: "%.0f°C", monitor.temperature.cpuDie), tint: TahoeTokens.Color.tempTint)
+                detailRow("Temperature", value: monitor.temperature.cpuDie.tempFormatted(fahrenheit: useFahrenheit), tint: TahoeTokens.Color.tempTint)
             }
         }
     }
@@ -268,6 +277,77 @@ struct DetailView: View {
         }
     }
 
+    private var thermalBreakdown: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("What these sensors mean")
+                .font(TahoeTokens.FontStyle.label)
+                .foregroundStyle(TahoeTokens.Color.textTertiary)
+                .textCase(.uppercase)
+                .kerning(0.8)
+
+            if monitor.temperature.readings.isEmpty {
+                Text("No thermal sensor metadata was available for this machine.")
+                    .font(TahoeTokens.FontStyle.body)
+                    .foregroundStyle(TahoeTokens.Color.textSecondary)
+            } else {
+                VStack(spacing: 8) {
+                    ForEach(monitor.temperature.readings) { reading in
+                        thermalRow(reading)
+                    }
+                }
+            }
+
+            Divider().opacity(0.4)
+
+            Text("Accuracy note")
+                .font(TahoeTokens.FontStyle.label)
+                .foregroundStyle(TahoeTokens.Color.textTertiary)
+                .textCase(.uppercase)
+                .kerning(0.8)
+
+            Text("These labels are normalized categories. On Apple Silicon they come from IOHID temperature services; on Intel they come from SMC keys. 'Ambient' can mean case or internal air, not room temperature.")
+                .font(TahoeTokens.FontStyle.body)
+                .foregroundStyle(TahoeTokens.Color.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    @ViewBuilder
+    private func thermalRow(_ reading: TemperatureReading) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Circle().fill(tintForThermal(reading)).frame(width: 5, height: 5)
+                Text(reading.label)
+                    .font(TahoeTokens.FontStyle.body)
+                    .foregroundStyle(TahoeTokens.Color.textPrimary)
+                Spacer()
+                Text(reading.value.tempFormatted(fahrenheit: useFahrenheit))
+                    .font(.system(size: 10, weight: .medium, design: .monospaced))
+                    .foregroundStyle(TahoeTokens.Color.textPrimary)
+            }
+            Text(reading.meaning)
+                .font(.system(size: 10))
+                .foregroundStyle(TahoeTokens.Color.textSecondary)
+            Text(reading.source)
+                .font(.system(size: 9, weight: .medium, design: .monospaced))
+                .foregroundStyle(TahoeTokens.Color.textQuaternary)
+        }
+        .padding(10)
+        .background {
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(tintForThermal(reading).opacity(0.06))
+        }
+    }
+
+    private func tintForThermal(_ reading: TemperatureReading) -> Color {
+        switch reading.kind {
+        case .cpu: return TahoeTokens.Color.cpuTint
+        case .gpu, .gpu2: return TahoeTokens.Color.gpuTint
+        case .memory: return TahoeTokens.Color.memTint
+        case .ambient: return TahoeTokens.Color.tempTint
+        }
+    }
+
     @ViewBuilder
     private func detailRow(_ label: String, value: String, tint: Color) -> some View {
         HStack {
@@ -278,6 +358,18 @@ struct DetailView: View {
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
                 .foregroundStyle(TahoeTokens.Color.textPrimary)
         }
+    }
+
+    private var thermalHeadline: String {
+        let values = [
+            monitor.temperature.cpuDie,
+            monitor.temperature.gpuDie,
+            monitor.temperature.gpuDie2,
+            monitor.temperature.memoryTemp,
+            monitor.temperature.ambientTemp
+        ].filter { $0 > 0 }
+        guard let hottest = values.max() else { return "n/a" }
+        return hottest.tempFormatted(fahrenheit: useFahrenheit)
     }
 }
 

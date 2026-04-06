@@ -37,6 +37,8 @@
 		AA000000000000000000BF1A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1C /* AppTheme.swift */; };
 		AA000000000000000000BF1B /* GPUBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1D /* GPUBarsView.swift */; };
 		AA000000000000000000BF1C /* TahoeTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR1E /* TahoeTooltip.swift */; };
+		AA000000000000000000BF1F /* ThermalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR20 /* ThermalView.swift */; };
+		AA000000000000000000BF20 /* AppleSiliconThermal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000FR21 /* AppleSiliconThermal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		AA000000000000000000FR1D /* GPUBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUBarsView.swift; sourceTree = "<group>"; };
 		AA000000000000000000FR1E /* TahoeTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahoeTooltip.swift; sourceTree = "<group>"; };
 		AA000000000000000000FR1F /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
+		AA000000000000000000FR20 /* ThermalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermalView.swift; sourceTree = "<group>"; };
+		AA000000000000000000FR21 /* AppleSiliconThermal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSiliconThermal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 				AA000000000000000000FR18 /* SMCMonitor.swift */,
 				AA000000000000000000FR19 /* AlertMonitor.swift */,
 				AA000000000000000000FR04 /* GPUMonitor.swift */,
+				AA000000000000000000FR21 /* AppleSiliconThermal.swift */,
 				AA000000000000000000FR05 /* MemoryMonitor.swift */,
 				AA000000000000000000FR06 /* PowerMonitor.swift */,
 				AA000000000000000000FR07 /* ProcessMonitor.swift */,
@@ -148,6 +153,7 @@
 				AA000000000000000000FR1A /* NetworkDiskView.swift */,
 				AA000000000000000000FR1B /* DetailView.swift */,
 				AA000000000000000000FR1D /* GPUBarsView.swift */,
+				AA000000000000000000FR20 /* ThermalView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -273,6 +279,8 @@
 				AA000000000000000000BF1A /* AppTheme.swift in Sources */,
 				AA000000000000000000BF1B /* GPUBarsView.swift in Sources */,
 				AA000000000000000000BF1C /* TahoeTooltip.swift in Sources */,
+				AA000000000000000000BF1F /* ThermalView.swift in Sources */,
+				AA000000000000000000BF20 /* AppleSiliconThermal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +428,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.0.9;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.baileykiehl.Aqua;
 				PRODUCT_NAME = Aqua;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -453,7 +461,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.0.9;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.baileykiehl.Aqua;
 				PRODUCT_NAME = Aqua;
 				SWIFT_EMIT_LOC_STRINGS = YES;

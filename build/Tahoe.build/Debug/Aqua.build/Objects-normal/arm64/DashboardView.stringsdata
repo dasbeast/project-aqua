@@ -1,0 +1,24 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/DashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "CPU temperature",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 150
+        }
+      }
+    ]
+  },
+  "version": 1
+}

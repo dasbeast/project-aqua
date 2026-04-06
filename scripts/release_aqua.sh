@@ -11,6 +11,7 @@ PRIVATE_KEY_FILE="${SPARKLE_PRIVATE_KEY_FILE:-$HOME/Desktop/sparkle-private-key.
 FEED_BASE_URL="${AQUA_FEED_BASE_URL:-https://baileykiehl.com/Aqua/}"
 REMOTE_DIR="${AQUA_REMOTE_DIR:-public_html/Aqua}"
 APPCAST_FILENAME="${AQUA_APPCAST_FILENAME:-appcast.xml}"
+RELEASE_NOTES_DIR="$ROOT_DIR/release-notes"
 CODE_SIGN_IDENTITY="${AQUA_CODE_SIGN_IDENTITY:-Developer ID Application: Bailey Kiehl (4V28UB843Z)}"
 NOTARY_PROFILE="${AQUA_NOTARY_PROFILE:-aqua-notary}"
 SPARKLE_PUBLIC_ED_KEY="${AQUA_SPARKLE_PUBLIC_ED_KEY:-}"
@@ -117,6 +118,7 @@ require_file "$APP_PATH/Contents/MacOS/$SCHEME"
 require_file "$INFO_PLIST"
 require_file "$GENERATE_APPCAST"
 require_file "$SIGN_UPDATE"
+require_file "$ROOT_DIR/index.html"
 
 SHORT_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$INFO_PLIST")"
 BUILD_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$INFO_PLIST")"
@@ -126,6 +128,10 @@ ZIP_PATH="$RELEASE_DIR/$ZIP_FILENAME"
 APPCAST_PATH="$RELEASE_DIR/$APPCAST_FILENAME"
 LANDING_PAGE_SOURCE="$ROOT_DIR/index.html"
 LANDING_PAGE_PATH="$RELEASE_DIR/index.html"
+RELEASE_NOTES_SOURCE_MD="$RELEASE_NOTES_DIR/$SHORT_VERSION.md"
+RELEASE_NOTES_SOURCE_HTML="$RELEASE_NOTES_DIR/$SHORT_VERSION.html"
+RELEASE_NOTES_TARGET_MD="$RELEASE_DIR/$SCHEME-$SHORT_VERSION.md"
+RELEASE_NOTES_TARGET_HTML="$RELEASE_DIR/$SCHEME-$SHORT_VERSION.html"
 NOTARY_ZIP_PATH="/tmp/Aqua-$SHORT_VERSION-notarize.zip"
 DOWNLOAD_PREFIX="${FEED_BASE_URL%/}/"
 
@@ -168,6 +174,14 @@ echo "Packaging Aqua $SHORT_VERSION ($BUILD_VERSION)..."
 rm -f "$ZIP_PATH" "$APPCAST_PATH" "$LANDING_PAGE_PATH"
 ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "$ZIP_PATH"
 cp "$LANDING_PAGE_SOURCE" "$LANDING_PAGE_PATH"
+
+if [[ -f "$RELEASE_NOTES_SOURCE_HTML" ]]; then
+  cp "$RELEASE_NOTES_SOURCE_HTML" "$RELEASE_NOTES_TARGET_HTML"
+elif [[ -f "$RELEASE_NOTES_SOURCE_MD" ]]; then
+  cp "$RELEASE_NOTES_SOURCE_MD" "$RELEASE_NOTES_TARGET_MD"
+else
+  echo "No release notes found for $SHORT_VERSION; generating appcast without notes." >&2
+fi
 
 echo "Generating appcast..."
 "$GENERATE_APPCAST" \

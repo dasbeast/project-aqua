@@ -1,0 +1,16 @@
+{
+  "source": "/Users/baileykiehl/Desktop/Project Aqua/Tahoe/UI/DetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Core Load",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 225
+        }
+      }
+    ]
+  },
+  "version": 1
+}
